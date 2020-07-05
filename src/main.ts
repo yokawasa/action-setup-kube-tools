@@ -40,12 +40,14 @@ const Tools: Tool[] = [
     isArchived: true,
     commandPathInPackage: 'linux-amd64/helm'
   },
+  /*
   {
     name: 'helmv3',
     defaultVersion: defaultHelmv3Version,
     isArchived: true,
     commandPathInPackage: 'linux-amd64/helm'
   },
+  */
   {
     name: 'kubeval',
     defaultVersion: defaultKubevalVersion,
@@ -75,18 +77,18 @@ function getDownloadURL(commandName: string, version: string): string {
       )
     case 'kustomize':
       return util.format(
-        'https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv%s/kustomize_v%s_linux_amd64.tar.gz ',
+        'https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv%s/kustomize_v%s_linux_amd64.tar.gz',
         version,
         version
       )
     case 'helm':
       return util.format(
-        'https://get.helm.sh/helm-v%s-linux-amd64.tar.gz ',
+        'https://get.helm.sh/helm-v%s-linux-amd64.tar.gz',
         version
       )
     case 'helmv3':
       return util.format(
-        'https://get.helm.sh/helm-v%s-linux-amd64.tar.gz ',
+        'https://get.helm.sh/helm-v%s-linux-amd64.tar.gz',
         version
       )
     case 'kubeval':
