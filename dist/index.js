@@ -1473,7 +1473,7 @@ function downloadTool(version, tool) {
         const allNodeVersions = toolCache.findAllVersions(tool.name);
         // eslint-disable-next-line no-console
         console.log(`Versions of tool available: ${allNodeVersions}`);
-        let commandDirPath = '';
+        let commandPath = '';
         // eslint-disable-next-line no-console
         console.log(`${tool.name} version '${version}': cachedToolPath=${cachedToolPath}`);
         if (!cachedToolPath) {
@@ -1488,18 +1488,18 @@ function downloadTool(version, tool) {
                     const extractedDirPath = yield toolCache.extractTar(packagePath, extractTarBaseDirPath);
                     // eslint-disable-next-line no-console
                     console.log(`extractedDirPath=${extractedDirPath}`);
-                    commandDirPath = util.format('%s/%s', extractedDirPath, tool.commandPathInPackage);
+                    commandPath = util.format('%s/%s', extractedDirPath, tool.commandPathInPackage);
                 }
                 else {
-                    commandDirPath = packagePath;
+                    commandPath = packagePath;
                 }
                 // eslint-disable-next-line no-console
-                console.log(`commandDirPath=${commandDirPath}`);
+                console.log(`commandPath=${commandPath}`);
             }
             catch (exception) {
                 throw new Error(`Download ${tool.name} Failed! (url: ${downloadURL})`);
             }
-            cachedToolPath = yield toolCache.cacheFile(commandDirPath, tool.name, tool.name, version);
+            cachedToolPath = yield toolCache.cacheFile(path.dirname(commandPath), tool.name, tool.name, version);
             // eslint-disable-next-line no-console
             console.log(`cachedToolPath=${cachedToolPath}`);
             // eslint-disable-next-line no-console
@@ -1509,11 +1509,11 @@ function downloadTool(version, tool) {
             // eslint-disable-next-line no-console
             console.log(`Found in cache: ${tool.name} version '${version}'`);
         }
-        const commandPath = path.join(cachedToolPath, tool.name);
+        const cachedCommand = path.join(cachedToolPath, tool.name);
         // eslint-disable-next-line no-console
-        console.log(`commandPath=${commandPath}`);
-        fs.chmodSync(commandPath, '777');
-        return commandPath;
+        console.log(`commandFile=${cachedCommand}`);
+        fs.chmodSync(cachedCommand, '777');
+        return cachedCommand;
     });
 }
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
