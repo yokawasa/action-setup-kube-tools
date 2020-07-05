@@ -117,17 +117,20 @@ async function downloadTool(version: string, tool: Tool): Promise<string> {
   if (!cachedToolpath) {
     const downloadURL = getDownloadURL(tool.name, version)
     // DEBUGj
-    console.log( `downloadURL = ${downloadURL}`)
+    // eslint-disable-next-line no-console
+    console.log(`downloadURL = ${downloadURL}`)
 
     try {
       const packagePath = await toolCache.downloadTool(downloadURL)
       // DEBUGj
-      console.log( `packagePath = ${packagePath}`)
+      // eslint-disable-next-line no-console
+      console.log(`packagePath = ${packagePath}`)
 
       if (tool.isArchived) {
         const extractedPath = util.format('%s_%s', packagePath, tool.name)
         // DEBUGj
-        console.log( `extractedPath = ${extractedPath}`)
+        // eslint-disable-next-line no-console
+        console.log(`extractedPath = ${extractedPath}`)
 
         fs.mkdirSync(extractedPath)
 
@@ -141,7 +144,8 @@ async function downloadTool(version: string, tool: Tool): Promise<string> {
           tool.commandPathInPackage
         )
         // DEBUGj
-        console.log( `commandPath = ${commandPath}`)
+        // eslint-disable-next-line no-console
+        console.log(`commandPath = ${commandPath}`)
       } else {
         commandPath = packagePath
       }

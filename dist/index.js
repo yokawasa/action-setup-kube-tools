@@ -1452,11 +1452,11 @@ function getDownloadURL(commandName, version) {
         case 'kubectl':
             return util.format('https://storage.googleapis.com/kubernetes-release/release/v%s/bin/linux/amd64/kubectl', version);
         case 'kustomize':
-            return util.format('https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv%s/kustomize_v%s_linux_amd64.tar.gz ', version, version);
+            return util.format('https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv%s/kustomize_v%s_linux_amd64.tar.gz', version, version);
         case 'helm':
-            return util.format('https://get.helm.sh/helm-v%s-linux-amd64.tar.gz ', version);
-        case 'helm3':
-            return util.format('https://get.helm.sh/helm-v%s-linux-amd64.tar.gz ', version);
+            return util.format('https://get.helm.sh/helm-v%s-linux-amd64.tar.gz', version);
+        case 'helmv3':
+            return util.format('https://get.helm.sh/helm-v%s-linux-amd64.tar.gz', version);
         case 'kubeval':
             return util.format('https://github.com/instrumenta/kubeval/releases/download/%s/kubeval-linux-amd64.tar.gz', version);
         case 'conftest':
@@ -1473,12 +1473,25 @@ function downloadTool(version, tool) {
         let commandPath = '';
         if (!cachedToolpath) {
             const downloadURL = getDownloadURL(tool.name, version);
+            // DEBUGj
+            // eslint-disable-next-line no-console
+            console.log(`downloadURL = ${downloadURL}`);
             try {
                 const packagePath = yield toolCache.downloadTool(downloadURL);
+                // DEBUGj
+                // eslint-disable-next-line no-console
+                console.log(`packagePath = ${packagePath}`);
                 if (tool.isArchived) {
-                    fs.mkdirSync(`${packagePath}_extracted`);
-                    const extractedDir = yield toolCache.extractTar(packagePath, `${packagePath}_extracted`);
+                    const extractedPath = util.format('%s_%s', packagePath, tool.name);
+                    // DEBUGj
+                    // eslint-disable-next-line no-console
+                    console.log(`extractedPath = ${extractedPath}`);
+                    fs.mkdirSync(extractedPath);
+                    const extractedDir = yield toolCache.extractTar(packagePath, extractedPath);
                     commandPath = util.format('%s/%s', extractedDir, tool.commandPathInPackage);
+                    // DEBUGj
+                    // eslint-disable-next-line no-console
+                    console.log(`commandPath = ${commandPath}`);
                 }
                 else {
                     commandPath = packagePath;
@@ -1497,11 +1510,9 @@ function downloadTool(version, tool) {
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
-        if (os.type().match(/^Win/)) {
-            throw new Error('Windows is not supported OS!');
+        if (!os.type().match(/^Linux/)) {
+            throw new Error('The action only support Linux OS!');
         }
-        // eslint-disable-next-line no-console
-        console.log(`os type: '${os.type()}'`);
         // eslint-disable-next-line github/array-foreach
         Tools.forEach(function (tool) {
             return __awaiter(this, void 0, void 0, function* () {
