@@ -1469,53 +1469,34 @@ function getDownloadURL(commandName, version) {
 }
 function downloadTool(version, tool) {
     return __awaiter(this, void 0, void 0, function* () {
-        //let cachedToolPath = toolCache.find(tool.name, version)
-        let cachedToolPath = toolCache.find(tool.name, version, 'x64');
-        const allNodeVersions = toolCache.findAllVersions(tool.name);
-        // eslint-disable-next-line no-console
-        console.log(`Versions of tool available: ${allNodeVersions}`);
+        let cachedToolPath = toolCache.find(tool.name, version);
         let commandPath = '';
-        // eslint-disable-next-line no-console
-        console.log(`${tool.name} version '${version}': cachedToolPath=${cachedToolPath}`);
         if (!cachedToolPath) {
             const downloadURL = getDownloadURL(tool.name, version);
             try {
                 const packagePath = yield toolCache.downloadTool(downloadURL);
-                // eslint-disable-next-line no-console
-                console.log(`packagePath=${packagePath}`);
                 if (tool.isArchived) {
                     const extractTarBaseDirPath = util.format('%s_%s', packagePath, tool.name);
                     fs.mkdirSync(extractTarBaseDirPath);
                     const extractedDirPath = yield toolCache.extractTar(packagePath, extractTarBaseDirPath);
-                    // eslint-disable-next-line no-console
-                    console.log(`extractedDirPath=${extractedDirPath}`);
                     commandPath = util.format('%s/%s', extractedDirPath, tool.commandPathInPackage);
                 }
                 else {
                     commandPath = packagePath;
                 }
-                // eslint-disable-next-line no-console
-                console.log(`commandPath=${commandPath}`);
-                const s = path.dirname(commandPath);
-                // eslint-disable-next-line no-console
-                console.log(`path dirname of commandPath=${s}`);
             }
             catch (exception) {
                 throw new Error(`Download ${tool.name} Failed! (url: ${downloadURL})`);
             }
             cachedToolPath = yield toolCache.cacheFile(commandPath, tool.name, tool.name, version);
             // eslint-disable-next-line no-console
-            console.log(`cachedToolPath=${cachedToolPath}`);
-            // eslint-disable-next-line no-console
-            console.log(`${tool.name} version '${version}' has been downloaded and cached`);
+            console.log(`${tool.name} version '${version}' has been cached`);
         }
         else {
             // eslint-disable-next-line no-console
             console.log(`Found in cache: ${tool.name} version '${version}'`);
         }
         const cachedCommand = path.join(cachedToolPath, tool.name);
-        // eslint-disable-next-line no-console
-        console.log(`commandFile=${cachedCommand}`);
         fs.chmodSync(cachedCommand, '777');
         return cachedCommand;
     });
