@@ -116,21 +116,12 @@ async function downloadTool(version: string, tool: Tool): Promise<string> {
 
   if (!cachedToolpath) {
     const downloadURL = getDownloadURL(tool.name, version)
-    // DEBUGj
-    // eslint-disable-next-line no-console
-    console.log(`downloadURL = ${downloadURL}`)
 
     try {
       const packagePath = await toolCache.downloadTool(downloadURL)
-      // DEBUGj
-      // eslint-disable-next-line no-console
-      console.log(`packagePath = ${packagePath}`)
 
       if (tool.isArchived) {
         const extractedPath = util.format('%s_%s', packagePath, tool.name)
-        // DEBUGj
-        // eslint-disable-next-line no-console
-        console.log(`extractedPath = ${extractedPath}`)
 
         fs.mkdirSync(extractedPath)
 
@@ -143,9 +134,6 @@ async function downloadTool(version: string, tool: Tool): Promise<string> {
           extractedDir,
           tool.commandPathInPackage
         )
-        // DEBUGj
-        // eslint-disable-next-line no-console
-        console.log(`commandPath = ${commandPath}`)
       } else {
         commandPath = packagePath
       }
@@ -158,6 +146,13 @@ async function downloadTool(version: string, tool: Tool): Promise<string> {
       tool.name,
       version
     )
+    // eslint-disable-next-line no-console
+    console.log(
+      `${tool.name} version '${version}' has been downloaded and cached`
+    )
+  } else {
+    // eslint-disable-next-line no-console
+    console.log(`Found in cache: ${tool.name} version '${version}'`)
   }
 
   const ecctlPath = path.join(cachedToolpath, tool.name)
@@ -179,10 +174,7 @@ async function run() {
     }
     const cachedPath = await downloadTool(toolVersion, tool)
     core.addPath(path.dirname(cachedPath))
-    // eslint-disable-next-line no-console
-    console.log(
-      `${tool.name} version '${toolVersion}' has been cached at ${cachedPath}`
-    )
+
     core.setOutput(`${tool.name}-path`, cachedPath)
   })
 }

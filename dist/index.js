@@ -1473,25 +1473,13 @@ function downloadTool(version, tool) {
         let commandPath = '';
         if (!cachedToolpath) {
             const downloadURL = getDownloadURL(tool.name, version);
-            // DEBUGj
-            // eslint-disable-next-line no-console
-            console.log(`downloadURL = ${downloadURL}`);
             try {
                 const packagePath = yield toolCache.downloadTool(downloadURL);
-                // DEBUGj
-                // eslint-disable-next-line no-console
-                console.log(`packagePath = ${packagePath}`);
                 if (tool.isArchived) {
                     const extractedPath = util.format('%s_%s', packagePath, tool.name);
-                    // DEBUGj
-                    // eslint-disable-next-line no-console
-                    console.log(`extractedPath = ${extractedPath}`);
                     fs.mkdirSync(extractedPath);
                     const extractedDir = yield toolCache.extractTar(packagePath, extractedPath);
                     commandPath = util.format('%s/%s', extractedDir, tool.commandPathInPackage);
-                    // DEBUGj
-                    // eslint-disable-next-line no-console
-                    console.log(`commandPath = ${commandPath}`);
                 }
                 else {
                     commandPath = packagePath;
@@ -1501,6 +1489,12 @@ function downloadTool(version, tool) {
                 throw new Error(`Download ${tool.name} Failed! (url: ${downloadURL})`);
             }
             cachedToolpath = yield toolCache.cacheFile(commandPath, tool.name, tool.name, version);
+            // eslint-disable-next-line no-console
+            console.log(`${tool.name} version '${version}' has been downloaded and cached`);
+        }
+        else {
+            // eslint-disable-next-line no-console
+            console.log(`Found in cache: ${tool.name} version '${version}'`);
         }
         const ecctlPath = path.join(cachedToolpath, tool.name);
         fs.chmodSync(ecctlPath, '777');
@@ -1522,8 +1516,6 @@ function run() {
                 }
                 const cachedPath = yield downloadTool(toolVersion, tool);
                 core.addPath(path.dirname(cachedPath));
-                // eslint-disable-next-line no-console
-                console.log(`${tool.name} version '${toolVersion}' has been cached at ${cachedPath}`);
                 core.setOutput(`${tool.name}-path`, cachedPath);
             });
         });
