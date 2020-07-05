@@ -158,6 +158,9 @@ async function downloadTool(version: string, tool: Tool): Promise<string> {
 
       // eslint-disable-next-line no-console
       console.log(`commandPath=${commandPath}`)
+      const s = path.dirname(commandPath)
+      // eslint-disable-next-line no-console
+      console.log(`path dirname of commandPath=${s}`)
     } catch (exception) {
       throw new Error(`Download ${tool.name} Failed! (url: ${downloadURL})`)
     }
