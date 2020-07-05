@@ -1,10 +1,22 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Kubernetes toolset installer'
+description: 'Github Action that install Kubernetes tools (kubectl, kustomize, helm, kubeval, conftest, yq) and cache them on the runner'
+author: 'Yoichi Kawasaki @yokawasa'
 inputs:
-  myInput:              # change this
-    description: 'input description here'
-    default: 'default value if applicable'
+  kubectl:
+    description: 'kubectl version'
+  kustomize:
+    description: 'kustomize version'
+  helm:
+    description: 'helm version'
+  helmv3:
+    description: 'helm3 version'
+  kubeval:
+    description: 'kubeval version'
+  conftest:
+    description: 'conftest version'
+branding:
+  icon: 'terminal'
+  color: 'blue'
 runs:
   using: 'node12'
   main: 'dist/index.js'

@@ -1,45 +1,50 @@
 {
-  "name": "typescript-action",
-  "version": "0.0.0",
+  "name": "action-setup-kube-tools",
+  "version": "0.1.0",
   "private": true,
-  "description": "TypeScript template action",
+  "description": "Github Action that install Kubernetes tools (kubectl, kustomize, helm, kubeval, conftest, yq) and cache them on the runner",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
     "format": "prettier --write **/*.ts",
     "format-check": "prettier --check **/*.ts",
-    "lint": "eslint src/**/*.ts",
+    "lint": "eslint src/*.ts",
     "pack": "ncc build",
-    "test": "jest",
-    "all": "npm run build && npm run format && npm run lint && npm run pack && npm test"
+    "all": "npm run build && npm run format && npm run lint && npm run pack"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/typescript-action.git"
+    "url": "git+https://github.com/yokawasa/action-setup-kube-tools.git"
   },
   "keywords": [
     "actions",
     "node",
-    "setup"
+    "setup",
+    "kubernetes",
+    "kubectl",
+    "kustomize",
+    "helm",
+    "kubeval",
+    "conftest",
+    "yq"
   ],
-  "author": "YourNameOrOrganization",
+  "author": "Yoichi Kawasaki",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.2.0"
+    "@actions/core": "^1.2.0",
+    "@actions/exec": "^1.0.0",
+    "@actions/tool-cache": "^1.0.0"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.23",
     "@types/node": "^12.7.12",
     "@typescript-eslint/parser": "^2.8.0",
     "@zeit/ncc": "^0.20.5",
     "eslint": "^5.16.0",
     "eslint-plugin-github": "^2.0.0",
     "eslint-plugin-jest": "^22.21.0",
-    "jest": "^24.9.0",
-    "jest-circus": "^24.9.0",
     "js-yaml": "^3.13.1",
     "prettier": "^1.19.1",
-    "ts-jest": "^24.2.0",
+    "ts-jest": "^26.1.0",
     "typescript": "^3.6.4"
   }
 }
