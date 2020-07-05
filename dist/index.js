@@ -1470,6 +1470,9 @@ function getDownloadURL(commandName, version) {
 function downloadTool(version, tool) {
     return __awaiter(this, void 0, void 0, function* () {
         let cachedToolPath = toolCache.find(tool.name, version);
+        const allNodeVersions = toolCache.findAllVersions(tool.name);
+        // eslint-disable-next-line no-console
+        console.log(`Versions of node available: ${allNodeVersions}`);
         let commandPath = '';
         // eslint-disable-next-line no-console
         console.log(`${tool.name} version '${version}': cachedToolPath=${cachedToolPath}`);
