@@ -116,19 +116,16 @@ async function downloadTool(version: string, tool: Tool): Promise<string> {
 
   if (!cachedToolpath) {
     const downloadURL = getDownloadURL(tool.name, version)
-    // eslint-disable-next-line no-console
     // DEBUGj
     console.log( `downloadURL = ${downloadURL}`)
 
     try {
       const packagePath = await toolCache.downloadTool(downloadURL)
-      // eslint-disable-next-line no-console
       // DEBUGj
       console.log( `packagePath = ${packagePath}`)
 
       if (tool.isArchived) {
         const extractedPath = util.format('%s_%s', packagePath, tool.name)
-        // eslint-disable-next-line no-console
         // DEBUGj
         console.log( `extractedPath = ${extractedPath}`)
 
@@ -143,7 +140,6 @@ async function downloadTool(version: string, tool: Tool): Promise<string> {
           extractedDir,
           tool.commandPathInPackage
         )
-        // eslint-disable-next-line no-console
         // DEBUGj
         console.log( `commandPath = ${commandPath}`)
       } else {
