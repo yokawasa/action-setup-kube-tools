@@ -14,6 +14,23 @@ inputs:
     description: 'kubeval version'
   conftest:
     description: 'conftest version'
+  yq:
+    description: 'yq version'
+outputs:
+  kubectl-path:
+    description: 'Path to the kubectl tool'
+  kustomize-path:
+    description: 'Path to the kustomize tool'
+  helm-path:
+    description: 'Path to the helm tool'
+  helmv3-path:
+    description: 'Path to the helmv3 tool'
+  kubeval-path:
+    description: 'Path to the kubeval tool'
+  conftest-path:
+    description: 'Path to the conftest tool'
+  yq-path:
+    description: 'Path to the yq tool'
 branding:
   icon: 'terminal'
   color: 'blue'
