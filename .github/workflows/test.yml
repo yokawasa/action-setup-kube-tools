@@ -1,3 +1,12 @@
+name: "build-test"
+on: # rebuild any PRs and main branch changes
+  pull_request:
+  push:
+    branches:
+      - master
+      - 'releases/*'
+
+
 jobs:
   build: # make sure build/ci work properly
     runs-on: ubuntu-latest
