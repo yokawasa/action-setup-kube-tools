@@ -84,7 +84,7 @@ function getDownloadURL(commandName: string, version: string): string {
         'https://get.helm.sh/helm-v%s-linux-amd64.tar.gz ',
         version
       )
-    case 'helm3':
+    case 'helmv3':
       return util.format(
         'https://get.helm.sh/helm-v%s-linux-amd64.tar.gz ',
         version

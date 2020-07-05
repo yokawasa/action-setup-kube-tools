@@ -1,11 +1,3 @@
-name: "build-test"
-on: # rebuild any PRs and main branch changes
-  pull_request:
-  push:
-    branches:
-      - master
-      - 'releases/*'
-
 jobs:
   build: # make sure build/ci work properly
     runs-on: ubuntu-latest
@@ -14,10 +6,28 @@ jobs:
     - run: |
         npm install
         npm run all
-  test: # make sure the action works on a clean machine without building
+  test1: # make sure the action works on a clean machine without building
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
     - uses: ./
-      with: 
-        milliseconds: 1000
+      #with: 
+      #  #version: 'v1.0.0-beta2'
+      #  # version: 'v1.0.0-beta3'
+        # version: 'latest'
+      id: setup
+    - run: |
+        kubectl=${{steps.setup.outputs.kubectl-path}}
+        kustomize=${{steps.setup.outputs.kustomize-path}}
+        helm=${{steps.setup.outputs.helm-path}}
+        helmv3=${{steps.setup.outputs.helmv3-path}}
+        kubeval=${{steps.setup.outputs.kubeval-path}}
+        conftest=${{steps.setup.outputs.conftest-path}}
+        yq=${{steps.setup.outputs.yq-path}}
+        ${kubectl} version --client
+        ${kustomize} version
+        ${helm} version --client
+        ${helmv3} version 
+        ${kubeval} --version 
+        ${conftest} --version 
+        ${yq} --version 
