@@ -1,11 +1,10 @@
 name: "build-test"
-on: # rebuild any PRs and main branch changes
+on:
   pull_request:
   push:
     branches:
       - master
       - 'releases/*'
-
 
 jobs:
   build: # make sure build/ci work properly
@@ -15,15 +14,11 @@ jobs:
     - run: |
         npm install
         npm run all
-  test1: # make sure the action works on a clean machine without building
+  test1: 
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
     - uses: ./
-      #with: 
-      #  #version: 'v1.0.0-beta2'
-      #  # version: 'v1.0.0-beta3'
-        # version: 'latest'
       id: setup
     - run: |
         kubectl=${{steps.setup.outputs.kubectl-path}}
@@ -42,7 +37,7 @@ jobs:
         ${conftest} --version 
         ${yq} --version 
 
-  test2: # make sure the action works on a clean machine without building
+  test2: 
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
@@ -71,5 +66,3 @@ jobs:
         ${kubeval} --version 
         ${conftest} --version 
         ${yq} --version 
-
-
