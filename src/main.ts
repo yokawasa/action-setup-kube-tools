@@ -119,9 +119,15 @@ async function downloadTool(version: string, tool: Tool): Promise<string> {
 
     try {
       const packagePath = await toolCache.downloadTool(downloadURL)
+      // eslint-disable-next-line no-console
+      // DEBUGj
+      console.log( `packagePath = ${packagePath}`)
 
       if (tool.isArchived) {
         const extractedPath = util.format('%s_%s', packagePath, tool.name)
+        // eslint-disable-next-line no-console
+        // DEBUGj
+        console.log( `extractedPath = ${extractedPath}`)
 
         fs.mkdirSync(extractedPath)
 
@@ -134,6 +140,9 @@ async function downloadTool(version: string, tool: Tool): Promise<string> {
           extractedDir,
           tool.commandPathInPackage
         )
+        // eslint-disable-next-line no-console
+        // DEBUGj
+        console.log( `commandPath = ${commandPath}`)
       } else {
         commandPath = packagePath
       }
@@ -155,11 +164,9 @@ async function downloadTool(version: string, tool: Tool): Promise<string> {
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 async function run() {
-  if (os.type().match(/^Win/)) {
-    throw new Error('Windows is not supported OS!')
+  if (!os.type().match(/^Linux/)) {
+    throw new Error('The action only support Linux OS!')
   }
-  // eslint-disable-next-line no-console
-  console.log(`os type: '${os.type()}'`)
 
   // eslint-disable-next-line github/array-foreach
   Tools.forEach(async function(tool) {
