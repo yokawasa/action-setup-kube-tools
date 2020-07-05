@@ -114,9 +114,9 @@ async function downloadTool(version: string, tool: Tool): Promise<string> {
   let cachedToolPath = toolCache.find(tool.name, version)
   const allNodeVersions = toolCache.findAllVersions(tool.name)
   // eslint-disable-next-line no-console
-  console.log(`Versions of node available: ${allNodeVersions}`)
+  console.log(`Versions of tool available: ${allNodeVersions}`)
 
-  let commandPath = ''
+  let commandDirPath = ''
   // eslint-disable-next-line no-console
   console.log(
     `${tool.name} version '${version}': cachedToolPath=${cachedToolPath}`
@@ -127,33 +127,48 @@ async function downloadTool(version: string, tool: Tool): Promise<string> {
 
     try {
       const packagePath = await toolCache.downloadTool(downloadURL)
+      // eslint-disable-next-line no-console
+      console.log(`packagePath=${packagePath}`)
 
       if (tool.isArchived) {
-        const extractedPath = util.format('%s_%s', packagePath, tool.name)
-
-        fs.mkdirSync(extractedPath)
-
-        const extractedDir = await toolCache.extractTar(
+        const extractTarBaseDirPath = util.format(
+          '%s_%s',
           packagePath,
-          extractedPath
+          tool.name
         )
-        commandPath = util.format(
+
+        fs.mkdirSync(extractTarBaseDirPath)
+
+        const extractedDirPath = await toolCache.extractTar(
+          packagePath,
+          extractTarBaseDirPath
+        )
+
+        // eslint-disable-next-line no-console
+        console.log(`extractedDirPath=${extractedDirPath}`)
+
+        commandDirPath = util.format(
           '%s/%s',
-          extractedDir,
+          extractedDirPath,
           tool.commandPathInPackage
         )
       } else {
-        commandPath = packagePath
+        commandDirPath = packagePath
       }
+
+      // eslint-disable-next-line no-console
+      console.log(`commandDirPath=${commandDirPath}`)
     } catch (exception) {
       throw new Error(`Download ${tool.name} Failed! (url: ${downloadURL})`)
     }
     cachedToolPath = await toolCache.cacheFile(
-      commandPath,
+      commandDirPath,
       tool.name,
       tool.name,
       version
     )
+    // eslint-disable-next-line no-console
+    console.log(`cachedToolPath=${cachedToolPath}`)
     // eslint-disable-next-line no-console
     console.log(
       `${tool.name} version '${version}' has been downloaded and cached`
@@ -163,9 +178,11 @@ async function downloadTool(version: string, tool: Tool): Promise<string> {
     console.log(`Found in cache: ${tool.name} version '${version}'`)
   }
 
-  const ecctlPath = path.join(cachedToolPath, tool.name)
-  fs.chmodSync(ecctlPath, '777')
-  return ecctlPath
+  const commandPath = path.join(cachedToolPath, tool.name)
+  // eslint-disable-next-line no-console
+  console.log(`commandPath=${commandPath}`)
+  fs.chmodSync(commandPath, '777')
+  return commandPath
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
