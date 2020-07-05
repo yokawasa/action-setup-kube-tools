@@ -111,10 +111,14 @@ function getDownloadURL(commandName: string, version: string): string {
 }
 
 async function downloadTool(version: string, tool: Tool): Promise<string> {
-  let cachedToolpath = toolCache.find(tool.name, version)
+  let cachedToolPath = toolCache.find(tool.name, version)
   let commandPath = ''
+  // eslint-disable-next-line no-console
+  console.log(
+    `${tool.name} version '${version}': cachedToolPath=${cachedToolPath}`
+  )
 
-  if (!cachedToolpath) {
+  if (!cachedToolPath) {
     const downloadURL = getDownloadURL(tool.name, version)
 
     try {
@@ -140,7 +144,7 @@ async function downloadTool(version: string, tool: Tool): Promise<string> {
     } catch (exception) {
       throw new Error(`Download ${tool.name} Failed! (url: ${downloadURL})`)
     }
-    cachedToolpath = await toolCache.cacheFile(
+    cachedToolPath = await toolCache.cacheFile(
       commandPath,
       tool.name,
       tool.name,
@@ -155,7 +159,7 @@ async function downloadTool(version: string, tool: Tool): Promise<string> {
     console.log(`Found in cache: ${tool.name} version '${version}'`)
   }
 
-  const ecctlPath = path.join(cachedToolpath, tool.name)
+  const ecctlPath = path.join(cachedToolPath, tool.name)
   fs.chmodSync(ecctlPath, '777')
   return ecctlPath
 }

@@ -1469,9 +1469,11 @@ function getDownloadURL(commandName, version) {
 }
 function downloadTool(version, tool) {
     return __awaiter(this, void 0, void 0, function* () {
-        let cachedToolpath = toolCache.find(tool.name, version);
+        let cachedToolPath = toolCache.find(tool.name, version);
         let commandPath = '';
-        if (!cachedToolpath) {
+        // eslint-disable-next-line no-console
+        console.log(`${tool.name} version '${version}': cachedToolPath=${cachedToolPath}`);
+        if (!cachedToolPath) {
             const downloadURL = getDownloadURL(tool.name, version);
             try {
                 const packagePath = yield toolCache.downloadTool(downloadURL);
@@ -1488,7 +1490,7 @@ function downloadTool(version, tool) {
             catch (exception) {
                 throw new Error(`Download ${tool.name} Failed! (url: ${downloadURL})`);
             }
-            cachedToolpath = yield toolCache.cacheFile(commandPath, tool.name, tool.name, version);
+            cachedToolPath = yield toolCache.cacheFile(commandPath, tool.name, tool.name, version);
             // eslint-disable-next-line no-console
             console.log(`${tool.name} version '${version}' has been downloaded and cached`);
         }
@@ -1496,7 +1498,7 @@ function downloadTool(version, tool) {
             // eslint-disable-next-line no-console
             console.log(`Found in cache: ${tool.name} version '${version}'`);
         }
-        const ecctlPath = path.join(cachedToolpath, tool.name);
+        const ecctlPath = path.join(cachedToolPath, tool.name);
         fs.chmodSync(ecctlPath, '777');
         return ecctlPath;
     });
