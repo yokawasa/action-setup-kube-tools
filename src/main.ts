@@ -40,14 +40,12 @@ const Tools: Tool[] = [
     isArchived: true,
     commandPathInPackage: 'linux-amd64/helm'
   },
-  /*
   {
     name: 'helmv3',
     defaultVersion: defaultHelmv3Version,
     isArchived: true,
     commandPathInPackage: 'linux-amd64/helm'
   },
-  */
   {
     name: 'kubeval',
     defaultVersion: defaultKubevalVersion,
@@ -123,11 +121,13 @@ async function downloadTool(version: string, tool: Tool): Promise<string> {
       const packagePath = await toolCache.downloadTool(downloadURL)
 
       if (tool.isArchived) {
-        fs.mkdirSync(`${packagePath}_extracted`)
+        const extractedPath = util.format('%s_%s', packagePath, tool.name)
+
+        fs.mkdirSync(extractedPath)
 
         const extractedDir = await toolCache.extractTar(
           packagePath,
-          `${packagePath}_extracted`
+          extractedPath
         )
         commandPath = util.format(
           '%s/%s',
