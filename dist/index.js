@@ -1502,7 +1502,7 @@ function downloadTool(version, tool) {
             catch (exception) {
                 throw new Error(`Download ${tool.name} Failed! (url: ${downloadURL})`);
             }
-            cachedToolPath = yield toolCache.cacheFile(path.dirname(commandPath), tool.name, tool.name, version);
+            cachedToolPath = yield toolCache.cacheFile(commandPath, tool.name, tool.name, version);
             // eslint-disable-next-line no-console
             console.log(`cachedToolPath=${cachedToolPath}`);
             // eslint-disable-next-line no-console

@@ -165,7 +165,7 @@ async function downloadTool(version: string, tool: Tool): Promise<string> {
       throw new Error(`Download ${tool.name} Failed! (url: ${downloadURL})`)
     }
     cachedToolPath = await toolCache.cacheFile(
-      path.dirname(commandPath),
+      commandPath,
       tool.name,
       tool.name,
       version
