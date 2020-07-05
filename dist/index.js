@@ -1469,7 +1469,8 @@ function getDownloadURL(commandName, version) {
 }
 function downloadTool(version, tool) {
     return __awaiter(this, void 0, void 0, function* () {
-        let cachedToolPath = toolCache.find(tool.name, version);
+        //let cachedToolPath = toolCache.find(tool.name, version)
+        let cachedToolPath = toolCache.find(tool.name, version, 'x64');
         const allNodeVersions = toolCache.findAllVersions(tool.name);
         // eslint-disable-next-line no-console
         console.log(`Versions of tool available: ${allNodeVersions}`);

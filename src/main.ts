@@ -111,7 +111,8 @@ function getDownloadURL(commandName: string, version: string): string {
 }
 
 async function downloadTool(version: string, tool: Tool): Promise<string> {
-  let cachedToolPath = toolCache.find(tool.name, version)
+  //let cachedToolPath = toolCache.find(tool.name, version)
+  let cachedToolPath = toolCache.find(tool.name, version, 'x64')
   const allNodeVersions = toolCache.findAllVersions(tool.name)
   // eslint-disable-next-line no-console
   console.log(`Versions of tool available: ${allNodeVersions}`)
