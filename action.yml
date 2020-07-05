@@ -14,8 +14,6 @@ inputs:
     description: 'kubeval version'
   conftest:
     description: 'conftest version'
-  yq:
-    description: 'yq version'
 outputs:
   kubectl-path:
     description: 'Path to the kubectl tool'
