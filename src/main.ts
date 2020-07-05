@@ -116,6 +116,9 @@ async function downloadTool(version: string, tool: Tool): Promise<string> {
 
   if (!cachedToolpath) {
     const downloadURL = getDownloadURL(tool.name, version)
+    // eslint-disable-next-line no-console
+    // DEBUGj
+    console.log( `downloadURL = ${downloadURL}`)
 
     try {
       const packagePath = await toolCache.downloadTool(downloadURL)
