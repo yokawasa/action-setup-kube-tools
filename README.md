@@ -66,6 +66,7 @@ Specific versions for the commands can be setup by adding inputs parameters like
         ${helmv3} version
         ${kubeval} --version
         ${conftest} --version
+        ${yq} --version
 ```
 
 Default versions for the commands will be setup if you don't give any inputs like this:
@@ -92,6 +93,7 @@ Default versions for the commands will be setup if you don't give any inputs lik
         ${helmv3} version
         ${kubeval} --version
         ${conftest} --version
+        ${yq} --version
 ```
 
 
