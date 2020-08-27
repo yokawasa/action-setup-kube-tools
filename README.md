@@ -3,8 +3,7 @@
 </p>
 
 # action-setup-kube-tools
-
-A GitHub Action that install Kubernetes tools (kubectl, kustomize, helm, kubeval, conftest, yq) and cache them on the runner. This is a typescript version of [stefanprodan/kube-tools](https://github.com/stefanprodan/kube-tools) with no command input param.
+A GitHub Action that setup Kubernetes tools (kubectl, kustomize, helm, kubeval, conftest, yq) and cache them on the runner. It is like a typescript version of [stefanprodan/kube-tools](https://github.com/stefanprodan/kube-tools) with no command input param, but it's **very fast** as it installs the tools asynchronously.
 
 ## Usage
 
@@ -52,21 +51,13 @@ Specific versions for the commands can be setup by adding inputs parameters like
         conftest: '0.18.2'
       id: setup
     - run: |
-        kubectl=${{steps.setup.outputs.kubectl-path}}
-        kustomize=${{steps.setup.outputs.kustomize-path}}
-        helm=${{steps.setup.outputs.helm-path}}
-        helmv3=${{steps.setup.outputs.helmv3-path}}
-        kubeval=${{steps.setup.outputs.kubeval-path}}
-        conftest=${{steps.setup.outputs.conftest-path}}
-        yq=${{steps.setup.outputs.yq-path}}
-
-        ${kubectl} version --client
-        ${kustomize} version
-        ${helm} version --client
-        ${helmv3} version
-        ${kubeval} --version
-        ${conftest} --version
-        ${yq} --version
+        kubectl version --client
+        kustomize version
+        helm version --client
+        helmv3 version
+        kubeval --version
+        conftest --version
+        yq --version
 ```
 
 Default versions for the commands will be setup if you don't give any inputs like this:
@@ -79,21 +70,13 @@ Default versions for the commands will be setup if you don't give any inputs lik
     - uses: yokawasa/action-setup-kube-tools@v0.1.0
       id: setup
     - run: |
-        kubectl=${{steps.setup.outputs.kubectl-path}}
-        kustomize=${{steps.setup.outputs.kustomize-path}}
-        helm=${{steps.setup.outputs.helm-path}}
-        helmv3=${{steps.setup.outputs.helmv3-path}}
-        kubeval=${{steps.setup.outputs.kubeval-path}}
-        conftest=${{steps.setup.outputs.conftest-path}}
-        yq=${{steps.setup.outputs.yq-path}}
-
-        ${kubectl} version --client
-        ${kustomize} version
-        ${helm} version --client
-        ${helmv3} version
-        ${kubeval} --version
-        ${conftest} --version
-        ${yq} --version
+        kubectl version --client
+        kustomize version
+        helm version --client
+        helmv3 version
+        kubeval --version
+        conftest --version
+        yq --version
 ```
 
 
