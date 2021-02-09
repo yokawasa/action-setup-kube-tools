@@ -13,6 +13,7 @@ const defaultHelmv3Version = '3.2.1'
 const defaultKubevalVersion = '0.15.0'
 const defaultConftestVersion = '0.19.0'
 const defaultYqVersion = 'latest'
+const defaultRancherVersion = '2.4.10'
 
 interface Tool {
   name: string
@@ -63,6 +64,12 @@ const Tools: Tool[] = [
     defaultVersion: defaultYqVersion,
     isArchived: false,
     commandPathInPackage: 'yq_linux_amd64'
+  },
+  {
+    name: 'rancher',
+    defaultVersion: defaultRancherVersion,
+    isArchived: true,
+    commandPathInPackage: 'rancher-v%s/rancher'
   }
 ]
 
@@ -105,6 +112,12 @@ function getDownloadURL(commandName: string, version: string): string {
         'https://github.com/mikefarah/yq/releases/%s/download/yq_linux_amd64',
         version
       )
+    case 'rancher':
+      return util.format(
+        'https://github.com/rancher/cli/releases/download/v%s/rancher-linux-amd64-v%s.tar.gz',
+        version,
+        version
+      )
     default:
       return ''
   }
@@ -112,6 +125,7 @@ function getDownloadURL(commandName: string, version: string): string {
 
 async function downloadTool(version: string, tool: Tool): Promise<string> {
   let cachedToolPath = toolCache.find(tool.name, version)
+  let commandPathInPackage=tool.commandPathInPackage
   let commandPath = ''
 
   if (!cachedToolPath) {
@@ -134,10 +148,13 @@ async function downloadTool(version: string, tool: Tool): Promise<string> {
           extractTarBaseDirPath
         )
 
+        if (commandPathInPackage.indexOf("%s") > 0 ) {
+          commandPathInPackage = util.format(commandPathInPackage, version)
+        }
         commandPath = util.format(
           '%s/%s',
           extractedDirPath,
-          tool.commandPathInPackage
+          commandPathInPackage
         )
       } else {
         commandPath = packagePath

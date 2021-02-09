@@ -1465,6 +1465,7 @@ const defaultHelmv3Version = '3.2.1';
 const defaultKubevalVersion = '0.15.0';
 const defaultConftestVersion = '0.19.0';
 const defaultYqVersion = 'latest';
+const defaultRancherVersion = '2.4.10';
 const Tools = [
     {
         name: 'kubectl',
@@ -1507,6 +1508,12 @@ const Tools = [
         defaultVersion: defaultYqVersion,
         isArchived: false,
         commandPathInPackage: 'yq_linux_amd64'
+    },
+    {
+        name: 'rancher',
+        defaultVersion: defaultRancherVersion,
+        isArchived: true,
+        commandPathInPackage: 'rancher-v%s/rancher'
     }
 ];
 function getDownloadURL(commandName, version) {
@@ -1525,6 +1532,8 @@ function getDownloadURL(commandName, version) {
             return util.format('https://github.com/open-policy-agent/conftest/releases/download/v%s/conftest_%s_Linux_x86_64.tar.gz', version, version);
         case 'yq':
             return util.format('https://github.com/mikefarah/yq/releases/%s/download/yq_linux_amd64', version);
+        case 'rancher':
+            return util.format('https://github.com/rancher/cli/releases/download/v%s/rancher-linux-amd64-v%s.tar.gz', version, version);
         default:
             return '';
     }
@@ -1532,6 +1541,7 @@ function getDownloadURL(commandName, version) {
 function downloadTool(version, tool) {
     return __awaiter(this, void 0, void 0, function* () {
         let cachedToolPath = toolCache.find(tool.name, version);
+        let commandPathInPackage = tool.commandPathInPackage;
         let commandPath = '';
         if (!cachedToolPath) {
             const downloadURL = getDownloadURL(tool.name, version);
@@ -1541,7 +1551,10 @@ function downloadTool(version, tool) {
                     const extractTarBaseDirPath = util.format('%s_%s', packagePath, tool.name);
                     fs.mkdirSync(extractTarBaseDirPath);
                     const extractedDirPath = yield toolCache.extractTar(packagePath, extractTarBaseDirPath);
-                    commandPath = util.format('%s/%s', extractedDirPath, tool.commandPathInPackage);
+                    if (commandPathInPackage.indexOf("%s") > 0) {
+                        commandPathInPackage = util.format(commandPathInPackage, version);
+                    }
+                    commandPath = util.format('%s/%s', extractedDirPath, commandPathInPackage);
                 }
                 else {
                     commandPath = packagePath;
