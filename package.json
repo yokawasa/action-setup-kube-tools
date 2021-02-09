@@ -1,8 +1,8 @@
 {
   "name": "action-setup-kube-tools",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
-  "description": "Github Action that install Kubernetes tools (kubectl, kustomize, helm, kubeval, conftest, yq) and cache them on the runner",
+  "description": "Github Action that install Kubernetes tools (kubectl, kustomize, helm, kubeval, conftest, yq, rancher) and cache them on the runner",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
@@ -26,7 +26,8 @@
     "helm",
     "kubeval",
     "conftest",
-    "yq"
+    "yq",
+    "rancher"
   ],
   "author": "Yoichi Kawasaki",
   "license": "MIT",

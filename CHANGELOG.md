@@ -2,6 +2,10 @@
 
 All notable changes to the "action-setup-acctl" will be documented in this file.
 
+## v0.3.0
+- Add Rancher CLI
+  - https://rancher.com/docs/rancher/v2.x/en/cli/
+
 ## v0.2.0
 - Bumps @actions/core from 1.2.0 to 1.2.6 - [PR#2](https://github.com/yokawasa/action-setup-kube-tools/pull/2)
 
