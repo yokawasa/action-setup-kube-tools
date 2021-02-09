@@ -3,7 +3,7 @@
 </p>
 
 # action-setup-kube-tools
-A GitHub Action that setup Kubernetes tools (kubectl, kustomize, helm, kubeval, conftest, yq) and cache them on the runner. It is like a typescript version of [stefanprodan/kube-tools](https://github.com/stefanprodan/kube-tools) with no command input param, but it's **very fast** as it installs the tools asynchronously.
+A GitHub Action that setup Kubernetes tools (kubectl, kustomize, helm, kubeval, conftest, yq, rancher) and cache them on the runner. It is like a typescript version of [stefanprodan/kube-tools](https://github.com/stefanprodan/kube-tools) with no command input param, but as compared with [stefanprodan/kube-tools](https://github.com/stefanprodan/kube-tools), it's **very fast** as it installs the tools asynchronously.
 
 ## Usage
 
