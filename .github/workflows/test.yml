@@ -28,6 +28,7 @@ jobs:
         kubeval=${{steps.setup.outputs.kubeval-path}}
         conftest=${{steps.setup.outputs.conftest-path}}
         yq=${{steps.setup.outputs.yq-path}}
+        rancher=${{steps.setup.outputs.rancher-path}}
 
         ${kubectl} version --client
         ${kustomize} version
@@ -36,6 +37,7 @@ jobs:
         ${kubeval} --version 
         ${conftest} --version 
         ${yq} --version 
+        ${rancher} --version 
 
   test2: 
     runs-on: ubuntu-latest
@@ -49,6 +51,7 @@ jobs:
         helmv3: '3.2.4'
         kubeval: '0.14.0'
         conftest: '0.18.2'
+        rancher: '2.4.10'
       id: setup
     - run: |
         kubectl=${{steps.setup.outputs.kubectl-path}}
@@ -58,6 +61,7 @@ jobs:
         kubeval=${{steps.setup.outputs.kubeval-path}}
         conftest=${{steps.setup.outputs.conftest-path}}
         yq=${{steps.setup.outputs.yq-path}}
+        rancher=${{steps.setup.outputs.rancher-path}}
 
         ${kubectl} version --client
         ${kustomize} version
@@ -66,3 +70,4 @@ jobs:
         ${kubeval} --version 
         ${conftest} --version 
         ${yq} --version 
+        ${rancher} --version 
