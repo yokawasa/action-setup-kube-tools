@@ -10,14 +10,14 @@ jobs:
   build: # make sure build/ci work properly
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - run: |
         npm install
         npm run all
   test1: 
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - uses: ./
       id: setup
     - run: |
@@ -29,6 +29,8 @@ jobs:
         conftest=${{steps.setup.outputs.conftest-path}}
         yq=${{steps.setup.outputs.yq-path}}
         rancher=${{steps.setup.outputs.rancher-path}}
+        tilt=${{steps.setup.outputs.tilt-path}}
+        skaffold=${{steps.setup.outputs.skaffold-path}}
 
         ${kubectl} version --client
         ${kustomize} version
@@ -38,11 +40,13 @@ jobs:
         ${conftest} --version 
         ${yq} --version 
         ${rancher} --version 
+        ${tilt} version 
+        ${skaffold} version 
 
   test2: 
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - uses: ./
       with: 
         kubectl: '1.17.1'
@@ -52,7 +56,9 @@ jobs:
         kubeval: '0.14.0'
         conftest: '0.18.2'
         rancher: '2.4.10'
-      id: setup
+        tilt: '0.18.11'
+        skaffold: '1.20.0'
+        id: setup
     - run: |
         kubectl=${{steps.setup.outputs.kubectl-path}}
         kustomize=${{steps.setup.outputs.kustomize-path}}
@@ -62,6 +68,8 @@ jobs:
         conftest=${{steps.setup.outputs.conftest-path}}
         yq=${{steps.setup.outputs.yq-path}}
         rancher=${{steps.setup.outputs.rancher-path}}
+        tilt=${{steps.setup.outputs.tilt-path}}
+        skaffold=${{steps.setup.outputs.skaffold-path}}
 
         ${kubectl} version --client
         ${kustomize} version
@@ -71,3 +79,5 @@ jobs:
         ${conftest} --version 
         ${yq} --version 
         ${rancher} --version 
+        ${tilt} version 
+        ${skaffold} version 
