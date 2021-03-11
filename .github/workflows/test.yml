@@ -58,7 +58,7 @@ jobs:
         rancher: '2.4.10'
         tilt: '0.18.11'
         skaffold: '1.20.0'
-        id: setup
+      id: setup
     - run: |
         kubectl=${{steps.setup.outputs.kubectl-path}}
         kustomize=${{steps.setup.outputs.kustomize-path}}
