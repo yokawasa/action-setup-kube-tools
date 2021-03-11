@@ -18,6 +18,8 @@ A GitHub Action that setup Kubernetes tools (kubectl, kustomize, helm, kubeval, 
 |`kubeval`|`false`|`0.15.0`| kubeval version. kubeval vesion can be found [here](https://github.com/instrumenta/kubeval/releases)|
 |`conftest`|`false`|`0.19.0`| conftest version. conftest vesion can be found [here](https://github.com/open-policy-agent/conftest/releases)|
 |`rancher`|`false`|`2.4.10`| Rancher CLI version. Rancher CLI vesion can be found [here](https://github.com/rancher/cli/releases)|
+|`tilt`|`false`|`0.18.11`| Tilt version. Tilt vesion can be found [here](https://github.com/tilt-dev/tilt/releases)|
+|`skaffold`|`false`|`1.20.0`| Skaffold version. Skaffold vesion can be found [here](https://github.com/GoogleContainerTools/skaffold/releases)|
 
 > Supported Environments: Linux
 
@@ -32,7 +34,8 @@ A GitHub Action that setup Kubernetes tools (kubectl, kustomize, helm, kubeval, 
 |`conftest_path`| conftest command path |
 |`yq_path`| yq command path |
 |`rancher_path`| rancher command path |
-
+|`tilt_path`| rancher command path |
+|`skaffold_path`| rancher command path |
 
 ### Sample Workflow
 
@@ -42,8 +45,8 @@ Specific versions for the commands can be setup by adding inputs parameters like
   test: 
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - uses: yokawasa/action-setup-kube-tools@v0.3.0
+    - uses: actions/checkout@v2
+    - uses: yokawasa/action-setup-kube-tools@v0.4.0
       with:
         kubectl: '1.17.1'
         kustomize: '3.7.0'
@@ -52,6 +55,8 @@ Specific versions for the commands can be setup by adding inputs parameters like
         kubeval: '0.14.0'
         conftest: '0.18.2'
         rancher: '2.4.10'
+        tilt: '0.18.11'
+        skaffold: '1.20.0'
       id: setup
     - run: |
         kubectl version --client
@@ -62,6 +67,8 @@ Specific versions for the commands can be setup by adding inputs parameters like
         conftest --version
         yq --version
         rancher --version
+        tilt version
+        skaffold version
 ```
 
 Default versions for the commands will be setup if you don't give any inputs like this:
@@ -70,8 +77,8 @@ Default versions for the commands will be setup if you don't give any inputs lik
   test: 
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - uses: yokawasa/action-setup-kube-tools@v0.3.0
+    - uses: actions/checkout@v2
+    - uses: yokawasa/action-setup-kube-tools@v0.4.0
       id: setup
     - run: |
         kubectl version --client
@@ -82,6 +89,8 @@ Default versions for the commands will be setup if you don't give any inputs lik
         conftest --version
         yq --version
         rancher --version
+        tilt version
+        skaffold version
 ```
 
 
@@ -97,11 +106,11 @@ Build the typescript and package it for distribution by running [ncc](https://gi
 npm run build && npm run pack
 ```
 
-Finally push the resutls
+Finally push the results
 ```
 git add dist
 git commit -a -m "prod dependencies"
-git push origin releases/v0.3.0
+git push origin releases/v0.4.0
 ```
 
 ## Contributing

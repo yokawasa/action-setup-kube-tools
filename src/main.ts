@@ -14,6 +14,8 @@ const defaultKubevalVersion = '0.15.0'
 const defaultConftestVersion = '0.19.0'
 const defaultYqVersion = 'latest'
 const defaultRancherVersion = '2.4.10'
+const defaultTiltVersion = '0.18.11'
+const defaultSkaffoldVersion = '1.20.0'
 
 interface Tool {
   name: string
@@ -70,6 +72,18 @@ const Tools: Tool[] = [
     defaultVersion: defaultRancherVersion,
     isArchived: true,
     commandPathInPackage: 'rancher-v%s/rancher'
+  },
+  {
+    name: 'tilt',
+    defaultVersion: defaultTiltVersion,
+    isArchived: true,
+    commandPathInPackage: 'tilt'
+  },
+  {
+    name: 'skaffold',
+    defaultVersion: defaultSkaffoldVersion,
+    isArchived: false,
+    commandPathInPackage: 'skaffold-linux-amd64'
   }
 ]
 
@@ -116,6 +130,17 @@ function getDownloadURL(commandName: string, version: string): string {
       return util.format(
         'https://github.com/rancher/cli/releases/download/v%s/rancher-linux-amd64-v%s.tar.gz',
         version,
+        version
+      )
+    case 'tilt':
+      return util.format(
+        'https://github.com/tilt-dev/tilt/releases/download/v%s/tilt.%s.linux.x86_64.tar.gz',
+        version,
+        version
+      )
+    case 'skaffold':
+      return util.format(
+        'https://github.com/GoogleContainerTools/skaffold/releases/download/v%s/skaffold-linux-amd64',
         version
       )
     default:

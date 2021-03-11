@@ -1,5 +1,5 @@
 name: 'Kubernetes toolset installer'
-description: 'Github Action that install Kubernetes tools (kubectl, kustomize, helm, kubeval, conftest, yq, rancher) and cache them on the runner'
+description: 'Github Action that install Kubernetes tools (kubectl, kustomize, helm, kubeval, conftest, yq, rancher, tilt, skaffold) and cache them on the runner'
 author: 'Yoichi Kawasaki @yokawasa'
 inputs:
   kubectl:
@@ -16,6 +16,10 @@ inputs:
     description: 'conftest version'
   rancher:
     description: 'rancher cli version'
+  tilt:
+    description: 'tilt version'
+  skaffold:
+    description: 'skaffold version'
 outputs:
   kubectl-path:
     description: 'Path to the kubectl'
@@ -33,6 +37,10 @@ outputs:
     description: 'Path to the yq'
   rancher-path:
     description: 'Path to the rancher cli'
+  tilt-path:
+    description: 'Path to the tilt'
+  skaffold-path:
+    description: 'Path to the skaffold'
 branding:
   icon: 'terminal'
   color: 'blue'
