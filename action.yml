@@ -1,5 +1,5 @@
 name: 'Kubernetes toolset installer'
-description: 'Github Action that install Kubernetes tools (kubectl, kustomize, helm, kubeval, conftest, yq, rancher, tilt, skaffold) and cache them on the runner'
+description: 'Github Action that install Kubernetes related tools very fast and cache them on the runner'
 author: 'Yoichi Kawasaki @yokawasa'
 inputs:
   kubectl:
