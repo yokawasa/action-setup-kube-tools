@@ -1,5 +1,5 @@
-name: 'Kubernetes toolset installer'
-description: 'Install Kubernetes toolset (kubectl, kustomize, helm, kubeval, conftest, yq, rancher, tilt, skaffold)'
+name: 'Setup Kubernetes Tools'
+description: 'Setup Kubernetes tools: kubectl, kustomize, helm, kubeval, conftest, yq, rancher, tilt, skaffold'
 author: 'Yoichi Kawasaki @yokawasa'
 inputs:
   kubectl:
