@@ -16,6 +16,7 @@ const defaultYqVersion = 'latest'
 const defaultRancherVersion = '2.4.10'
 const defaultTiltVersion = '0.18.11'
 const defaultSkaffoldVersion = '1.20.0'
+const defaultKubeScoreVersion = '1.10.1'
 
 interface Tool {
   name: string
@@ -84,6 +85,12 @@ const Tools: Tool[] = [
     defaultVersion: defaultSkaffoldVersion,
     isArchived: false,
     commandPathInPackage: 'skaffold-linux-amd64'
+  },
+  {
+    name: 'kube-score',
+    defaultVersion: defaultKubeScoreVersion,
+    isArchived: false,
+    commandPathInPackage: 'kube-score'
   }
 ]
 
@@ -143,6 +150,12 @@ function getDownloadURL(commandName: string, version: string): string {
         'https://github.com/GoogleContainerTools/skaffold/releases/download/v%s/skaffold-linux-amd64',
         version
       )
+    case 'kube-score':
+      return util.format(
+        'https://github.com/zegl/kube-score/releases/download/v%s/kube-score_%s_linux_amd64',
+        version,
+        version
+      )
     default:
       return ''
   }
@@ -150,7 +163,7 @@ function getDownloadURL(commandName: string, version: string): string {
 
 async function downloadTool(version: string, tool: Tool): Promise<string> {
   let cachedToolPath = toolCache.find(tool.name, version)
-  let commandPathInPackage=tool.commandPathInPackage
+  let commandPathInPackage = tool.commandPathInPackage
   let commandPath = ''
 
   if (!cachedToolPath) {
@@ -173,7 +186,7 @@ async function downloadTool(version: string, tool: Tool): Promise<string> {
           extractTarBaseDirPath
         )
 
-        if (commandPathInPackage.indexOf("%s") > 0 ) {
+        if (commandPathInPackage.indexOf('%s') > 0) {
           commandPathInPackage = util.format(commandPathInPackage, version)
         }
         commandPath = util.format(

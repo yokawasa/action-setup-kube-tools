@@ -31,6 +31,7 @@ jobs:
         rancher=${{steps.setup.outputs.rancher-path}}
         tilt=${{steps.setup.outputs.tilt-path}}
         skaffold=${{steps.setup.outputs.skaffold-path}}
+        kubescore=${{steps.setup.outputs.kube-score-path}}
 
         ${kubectl} version --client
         ${kustomize} version
@@ -42,6 +43,7 @@ jobs:
         ${rancher} --version 
         ${tilt} version 
         ${skaffold} version 
+        ${kubescore} version
 
   test2: 
     runs-on: ubuntu-latest
@@ -58,6 +60,7 @@ jobs:
         rancher: '2.4.10'
         tilt: '0.18.11'
         skaffold: '1.20.0'
+        kube-score: '1.10.1'
       id: setup
     - run: |
         kubectl=${{steps.setup.outputs.kubectl-path}}
@@ -70,6 +73,7 @@ jobs:
         rancher=${{steps.setup.outputs.rancher-path}}
         tilt=${{steps.setup.outputs.tilt-path}}
         skaffold=${{steps.setup.outputs.skaffold-path}}
+        kubescore=${{steps.setup.outputs.kube-score-path}}
 
         ${kubectl} version --client
         ${kustomize} version
@@ -81,3 +85,4 @@ jobs:
         ${rancher} --version 
         ${tilt} version 
         ${skaffold} version 
+        ${kubescore} version
