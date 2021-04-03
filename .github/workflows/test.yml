@@ -21,6 +21,18 @@ jobs:
     - uses: ./
       id: setup
     - run: |
+        kubectl version --client
+        kustomize version
+        helm version --client
+        helmv3 version
+        kubeval --version
+        conftest --version
+        yq --version
+        rancher --version
+        tilt version
+        skaffold version
+        kube-score version
+    - run: |
         kubectl=${{steps.setup.outputs.kubectl-path}}
         kustomize=${{steps.setup.outputs.kustomize-path}}
         helm=${{steps.setup.outputs.helm-path}}
@@ -62,6 +74,18 @@ jobs:
         skaffold: '1.20.0'
         kube-score: '1.10.1'
       id: setup
+    - run: |
+        kubectl version --client
+        kustomize version
+        helm version --client
+        helmv3 version
+        kubeval --version
+        conftest --version
+        yq --version
+        rancher --version
+        tilt version
+        skaffold version
+        kube-score version
     - run: |
         kubectl=${{steps.setup.outputs.kubectl-path}}
         kustomize=${{steps.setup.outputs.kustomize-path}}
