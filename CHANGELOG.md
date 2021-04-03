@@ -2,17 +2,22 @@
 
 All notable changes to the "action-setup-kube-tools" will be documented in this file.
 
+## v0.5.0
+
+- Add kube-score - [PR#10](https://github.com/yokawasa/action-setup-kube-tools/pull/10)
+  - https://github.com/zegl/kube-score
+
 ## v0.4.0
 
 - Minor markdown cleanup
 - Bump `actions/checkout` to v2 in tests and documentation
-- Add Tilt and Skaffold
+- Add Tilt and Skaffold - [PR#6](https://github.com/yokawasa/action-setup-kube-tools/pull/6)
   - https://tilt.dev
   - https://skaffold.dev
 
 ## v0.3.0
 
-- Add Rancher CLI
+- Add Rancher CLI - [PR#4](https://github.com/yokawasa/action-setup-kube-tools/pull/4)
   - https://rancher.com/docs/rancher/v2.x/en/cli/
 
 ## v0.2.0

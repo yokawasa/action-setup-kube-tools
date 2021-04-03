@@ -20,22 +20,24 @@ A GitHub Action that setup Kubernetes tools (kubectl, kustomize, helm, kubeval, 
 |`rancher`|`false`|`2.4.10`| Rancher CLI version. Rancher CLI vesion can be found [here](https://github.com/rancher/cli/releases)|
 |`tilt`|`false`|`0.18.11`| Tilt version. Tilt vesion can be found [here](https://github.com/tilt-dev/tilt/releases)|
 |`skaffold`|`false`|`1.20.0`| Skaffold version. Skaffold vesion can be found [here](https://github.com/GoogleContainerTools/skaffold/releases)|
+|`kube-score`|`false`|`1.10.1`| kube-score version. kube-score vesion can be found [here](https://github.com/zegl/kube-score/releases)|
 
 > Supported Environments: Linux
 
 ### Outputs
 |Parameter|Description|
 |:--:|:--|
-|`kubectl_path`| kubectl command path |
-|`kustomize_path`| kustomize command path |
-|`helm_path`| helm command path |
-|`helmv3_path`| helm v3 command path |
-|`kubeval_path`| kubeval command path |
-|`conftest_path`| conftest command path |
-|`yq_path`| yq command path |
-|`rancher_path`| rancher command path |
-|`tilt_path`| rancher command path |
-|`skaffold_path`| rancher command path |
+|`kubectl-path`| kubectl command path |
+|`kustomize-path`| kustomize command path |
+|`helm-path`| helm command path |
+|`helmv3-path`| helm v3 command path |
+|`kubeval-path`| kubeval command path |
+|`conftest-path`| conftest command path |
+|`yq-path`| yq command path |
+|`rancher-path`| rancher command path |
+|`tilt-path`| rancher command path |
+|`skaffold-path`| rancher command path |
+|`kube-score-path:`| rancher command path |
 
 ### Sample Workflow
 
@@ -46,7 +48,7 @@ Specific versions for the commands can be setup by adding inputs parameters like
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: yokawasa/action-setup-kube-tools@v0.4.0
+    - uses: yokawasa/action-setup-kube-tools@v0.5.0
       with:
         kubectl: '1.17.1'
         kustomize: '3.7.0'
@@ -57,6 +59,7 @@ Specific versions for the commands can be setup by adding inputs parameters like
         rancher: '2.4.10'
         tilt: '0.18.11'
         skaffold: '1.20.0'
+        kube-score: '1.10.1'
       id: setup
     - run: |
         kubectl version --client
@@ -69,6 +72,7 @@ Specific versions for the commands can be setup by adding inputs parameters like
         rancher --version
         tilt version
         skaffold version
+        kube-score version
 ```
 
 Default versions for the commands will be setup if you don't give any inputs like this:
@@ -78,7 +82,7 @@ Default versions for the commands will be setup if you don't give any inputs lik
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: yokawasa/action-setup-kube-tools@v0.4.0
+    - uses: yokawasa/action-setup-kube-tools@v0.5.0
       id: setup
     - run: |
         kubectl version --client
@@ -91,6 +95,7 @@ Default versions for the commands will be setup if you don't give any inputs lik
         rancher --version
         tilt version
         skaffold version
+        kube-score version
 ```
 
 
@@ -110,7 +115,7 @@ Finally push the results
 ```
 git add dist
 git commit -a -m "prod dependencies"
-git push origin releases/v0.4.0
+git push origin releases/v0.5.0
 ```
 
 ## Contributing
