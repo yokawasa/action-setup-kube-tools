@@ -1,5 +1,5 @@
 name: 'Setup Kubernetes Tools'
-description: 'Setup Kubernetes tools: kubectl, kustomize, helm, kubeval, conftest, yq, rancher, tilt, skaffold'
+description: 'Setup Kubernetes tools: kubectl, kustomize, helm, kubeval, conftest, yq, rancher, tilt, skaffold, kube-score'
 author: 'Yoichi Kawasaki @yokawasa'
 inputs:
   kubectl:
