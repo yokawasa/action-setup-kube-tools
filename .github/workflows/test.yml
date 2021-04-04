@@ -1,10 +1,11 @@
-name: "build-test"
+name: "action-setup-kube-tools Test"
 on:
   pull_request:
   push:
     branches:
       - master
       - 'releases/*'
+      - 'v*'
 
 jobs:
   build: # make sure build/ci work properly
@@ -110,3 +111,64 @@ jobs:
         ${tilt} version 
         ${skaffold} version 
         ${kubescore} version
+
+  test3: 
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: ./
+      with:
+        setup-tools: |
+          kubectl
+          kustomize
+          skaffold
+        kubectl: '1.17.1'
+        kustomize: '3.7.0'
+        skaffold: '1.20.0'
+      id: setup
+    - run: |
+        kubectl=${{steps.setup.outputs.kubectl-path}}
+        kustomize=${{steps.setup.outputs.kustomize-path}}
+        helm=${{steps.setup.outputs.helm-path}}
+        helmv3=${{steps.setup.outputs.helmv3-path}}
+        kubeval=${{steps.setup.outputs.kubeval-path}}
+        conftest=${{steps.setup.outputs.conftest-path}}
+        yq=${{steps.setup.outputs.yq-path}}
+        rancher=${{steps.setup.outputs.rancher-path}}
+        tilt=${{steps.setup.outputs.tilt-path}}
+        skaffold=${{steps.setup.outputs.skaffold-path}}
+        kubescore=${{steps.setup.outputs.kube-score-path}}
+
+        if [ ! -z ${kubectl} ]; then
+          ${kubectl} version --client
+        fi
+        if [ ! -z ${kustomize} ]; then
+          ${kustomize} version
+        fi
+        if [ ! -z ${helm} ]; then
+          ${helm} version --client
+        fi
+        if [ ! -z ${helmv3} ]; then
+          ${helmv3} version 
+        fi
+        if [ ! -z ${kubeval} ]; then
+          ${kubeval} --version 
+        fi
+        if [ ! -z ${conftest} ]; then
+          ${conftest} --version 
+        fi
+        if [ ! -z ${yq} ]; then
+          ${yq} --version 
+        fi
+        if [ ! -z ${rancher} ]; then
+          ${rancher} --version 
+        fi
+        if [ ! -z ${tilt} ]; then
+          ${tilt} version 
+        fi
+        if [ ! -z ${skaffold} ]; then
+          ${skaffold} version 
+        fi
+        if [ ! -z ${kubescore} ]; then
+          ${kubescore} version
+        fi
