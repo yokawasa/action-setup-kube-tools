@@ -161,6 +161,10 @@ function getDownloadURL(commandName: string, version: string): string {
   }
 }
 
+function isContains(value:string, array:string[]) {
+  return array.indexOf(value) > -1;
+}
+
 async function downloadTool(version: string, tool: Tool): Promise<string> {
   let cachedToolPath = toolCache.find(tool.name, version)
   let commandPathInPackage = tool.commandPathInPackage
@@ -224,16 +228,23 @@ async function run() {
     throw new Error('The action only support Linux OS!')
   }
 
+  let setupTools: string[] = core.getInput('setup-tools').split("\n").filter(x => x !== "");
+
   // eslint-disable-next-line github/array-foreach
   Tools.forEach(async function(tool) {
-    let toolVersion = core.getInput(tool.name, {required: false})
-    if (!toolVersion) {
-      toolVersion = tool.defaultVersion
+    let toolPath: string = ""
+    // By default, the action setup all supported Kubernetes tools, which mean
+    // all tools can be setup when setuptools does not have any elements.
+    if ( setupTools.length == 0 || isContains(tool.name, setupTools)) {
+      let toolVersion = core.getInput(tool.name, {required: false})
+      if (!toolVersion) {
+        toolVersion = tool.defaultVersion
+      }
+      const cachedPath = await downloadTool(toolVersion, tool)
+      core.addPath(path.dirname(cachedPath))
+      toolPath = cachedPath
     }
-    const cachedPath = await downloadTool(toolVersion, tool)
-    core.addPath(path.dirname(cachedPath))
-
-    core.setOutput(`${tool.name}-path`, cachedPath)
+    core.setOutput(`${tool.name}-path`, toolPath)
   })
 }
 
