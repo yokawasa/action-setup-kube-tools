@@ -1612,16 +1612,12 @@ function run() {
         let setupToolList = [];
         const setupTools = core.getInput('setup-tools', { required: false }).trim();
         if (setupTools) {
-            //setupToolList = setupTools.split('\n').filter(x => x.trim() !== '')
-            setupToolList = setupTools.split('\n').map(function (x) { return x.trim(); }).filter(x => x !== '');
-        }
-        // eslint-disable-next-line no-console
-        console.log(`setupToos=${setupTools}`);
-        // eslint-disable-next-line no-console
-        console.log(`setupToolList.length=${setupToolList.length}`);
-        for (let i = 0; i < setupToolList.length; i++) {
-            // eslint-disable-next-line no-console
-            console.log(`setupToolList[${i}]=${setupToolList[i]}`);
+            setupToolList = setupTools
+                .split('\n')
+                .map(function (x) {
+                return x.trim();
+            })
+                .filter(x => x !== '');
         }
         // eslint-disable-next-line github/array-foreach
         Tools.forEach(function (tool) {
@@ -1629,14 +1625,8 @@ function run() {
                 let toolPath = '';
                 // By default, the action setup all supported Kubernetes tools, which mean
                 // all tools can be setup when setuptools does not have any elements.
-                // eslint-disable-next-line no-console
-                console.log(`tool.name=${tool.name}`);
                 if (setupToolList.length === 0 || setupToolList.includes(tool.name)) {
-                    // eslint-disable-next-line no-console
-                    console.log(`setting up tool.name: ${tool.name}`);
                     let toolVersion = core.getInput(tool.name, { required: false });
-                    // eslint-disable-next-line no-console
-                    console.log(`tool version: ${toolVersion}`);
                     if (!toolVersion) {
                         toolVersion = tool.defaultVersion;
                     }
