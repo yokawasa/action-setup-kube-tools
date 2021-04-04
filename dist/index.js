@@ -1565,9 +1565,6 @@ function getDownloadURL(commandName, version) {
             return '';
     }
 }
-function isContains(value, array) {
-    return array.indexOf(value) > -1;
-}
 function downloadTool(version, tool) {
     return __awaiter(this, void 0, void 0, function* () {
         let cachedToolPath = toolCache.find(tool.name, version);
@@ -1613,17 +1610,17 @@ function run() {
             throw new Error('The action only support Linux OS!');
         }
         let setupToolList = [];
-        let setupTools = core.getInput('setup-tools', { required: false });
+        const setupTools = core.getInput('setup-tools', { required: false });
         if (setupTools) {
-            setupToolList = setupTools.split("\n").filter(x => x !== "");
+            setupToolList = setupTools.split('\n').filter(x => x !== '');
         }
         // eslint-disable-next-line github/array-foreach
         Tools.forEach(function (tool) {
             return __awaiter(this, void 0, void 0, function* () {
-                let toolPath = "";
+                let toolPath = '';
                 // By default, the action setup all supported Kubernetes tools, which mean
                 // all tools can be setup when setuptools does not have any elements.
-                if (setupToolList.length == 0 || isContains(tool.name, setupToolList)) {
+                if (setupToolList.length === 0 || setupToolList.includes(tool.name)) {
                     let toolVersion = core.getInput(tool.name, { required: false });
                     if (!toolVersion) {
                         toolVersion = tool.defaultVersion;
