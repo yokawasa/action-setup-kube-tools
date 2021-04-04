@@ -1612,11 +1612,11 @@ function run() {
         let setupToolList = [];
         const setupTools = core
             .getInput('setup-tools', { required: false })
-            .replace(/\s/g, '');
+            .trim();
         if (setupTools) {
             //setupToolList = setupTools.split('\n').filter(x => x !== '')
             setupToolList = setupTools.split('\n').filter(function (x) {
-                return x.replace(/\s/g, '') !== '';
+                return x.trim() !== '';
             });
         }
         // eslint-disable-next-line no-console
