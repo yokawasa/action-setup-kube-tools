@@ -1612,10 +1612,8 @@ function run() {
         let setupToolList = [];
         const setupTools = core.getInput('setup-tools', { required: false }).trim();
         if (setupTools) {
-            setupToolList = setupTools.split('\n').filter(x => x.trim() !== '');
-            //setupToolList = setupTools.split('\n').filter(function(x) {
-            //  return x.trim() !== ''
-            //})
+            //setupToolList = setupTools.split('\n').filter(x => x.trim() !== '')
+            setupToolList = setupTools.split('\n').map(function (x) { return x.trim(); }).filter(x => x !== '');
         }
         // eslint-disable-next-line no-console
         console.log(`setupToos=${setupTools}`);
