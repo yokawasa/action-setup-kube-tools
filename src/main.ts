@@ -6,10 +6,10 @@ import * as fs from 'fs'
 import * as toolCache from '@actions/tool-cache'
 import * as core from '@actions/core'
 
-const defaultKubectlVersion = '1.18.2'
-const defaultKustomizeVersion = '3.5.5'
-const defaultHelmVersion = '2.16.7'
-const defaultHelmv3Version = '3.2.1'
+const defaultKubectlVersion = '1.20.2'
+const defaultKustomizeVersion = '4.0.5'
+const defaultHelmVersion = '2.17.0'
+const defaultHelmv3Version = '3.5.2'
 const defaultKubevalVersion = '0.15.0'
 const defaultConftestVersion = '0.19.0'
 const defaultYqVersion = 'latest'
@@ -224,16 +224,32 @@ async function run() {
     throw new Error('The action only support Linux OS!')
   }
 
+  let setupToolList: string[] = []
+  const setupTools = core.getInput('setup-tools', {required: false}).trim()
+  if (setupTools) {
+    setupToolList = setupTools
+      .split('\n')
+      .map(function(x) {
+        return x.trim()
+      })
+      .filter(x => x !== '')
+  }
+
   // eslint-disable-next-line github/array-foreach
   Tools.forEach(async function(tool) {
-    let toolVersion = core.getInput(tool.name, {required: false})
-    if (!toolVersion) {
-      toolVersion = tool.defaultVersion
+    let toolPath = ''
+    // By default, the action setup all supported Kubernetes tools, which mean
+    // all tools can be setup when setuptools does not have any elements.
+    if (setupToolList.length === 0 || setupToolList.includes(tool.name)) {
+      let toolVersion = core.getInput(tool.name, {required: false})
+      if (!toolVersion) {
+        toolVersion = tool.defaultVersion
+      }
+      const cachedPath = await downloadTool(toolVersion, tool)
+      core.addPath(path.dirname(cachedPath))
+      toolPath = cachedPath
     }
-    const cachedPath = await downloadTool(toolVersion, tool)
-    core.addPath(path.dirname(cachedPath))
-
-    core.setOutput(`${tool.name}-path`, cachedPath)
+    core.setOutput(`${tool.name}-path`, toolPath)
   })
 }
 

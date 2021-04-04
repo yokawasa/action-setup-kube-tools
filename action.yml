@@ -2,49 +2,73 @@ name: 'Setup Kubernetes Tools'
 description: 'Setup Kubernetes tools: kubectl, kustomize, helm, kubeval, conftest, yq, rancher, tilt, skaffold, kube-score'
 author: 'Yoichi Kawasaki @yokawasa'
 inputs:
+  setup-tools:
+    required: false
+    default: ''
+    description: 'List of tool name to setup. By default, the action download and setup all supported Kubernetes tools. By specifying "setup-tools" you can choose which tools the action setup. Supported separator is return in multi-line string. Supported tools are "kubectl", "kustomize", "helm", "helmv3", "kubeval", "conftest", "yq", "rancher", "tilt", "skaffold", "kube-score"'
   kubectl:
+    required: false
+    default: '1.20.2'
     description: 'kubectl version'
   kustomize:
+    required: false
+    default: '4.0.5'
     description: 'kustomize version'
   helm:
+    required: false
+    default: '2.17.0'
     description: 'helm version'
   helmv3:
+    required: false
+    default: '3.5.2'
     description: 'helm3 version'
   kubeval:
+    required: false
+    default: '0.15.0'
     description: 'kubeval version'
   conftest:
+    required: false
+    default: '0.19.0'
     description: 'conftest version'
   rancher:
+    required: false
+    default: '2.4.10'
     description: 'rancher cli version'
   tilt:
+    required: false
+    default: '0.18.11'
     description: 'tilt version'
   skaffold:
+    required: false
+    default: '1.20.0'
     description: 'skaffold version'
   kube-score:
+    required: false
+    default: '1.10.1'
     description: 'kube-score version'
 outputs:
   kubectl-path:
-    description: 'Path to the kubectl'
+    description: 'kubectl command path if the action setup the tool, otherwise empty string'
   kustomize-path:
-    description: 'Path to the kustomize'
+    description: 'kustomize command path if the action setup the tool, otherwise empty string'
   helm-path:
-    description: 'Path to the helm'
+    description: 'helm command path if the action setup the tool, otherwise empty string'
   helmv3-path:
-    description: 'Path to the helmv3'
+    description: 'helmv3 command path if the action setup the tool, otherwise empty string'
   kubeval-path:
-    description: 'Path to the kubeval'
+    description: 'kubeval command path if the action setup the tool, otherwise empty string'
   conftest-path:
-    description: 'Path to the conftest'
+    description: 'conftest command path if the action setup the tool, otherwise empty string'
   yq-path:
-    description: 'Path to the yq'
+    description: 'yq command path if the action setup the tool, otherwise empty string'
   rancher-path:
-    description: 'Path to the rancher cli'
+    description: 'rancher cli command path if the action setup the tool, otherwise empty string'
   tilt-path:
-    description: 'Path to the tilt'
+    description: 'tilt command path if the action setup the tool, otherwise empty string'
   skaffold-path:
-    description: 'Path to the skaffold'
+    description: 'skaffold command path if the action setup the tool, otherwise empty string'
   kube-score-path:
-    description: 'Path to the kube-score'
+    description: 'kube-score command path if the action setup the tool, otherwise empty string'
 branding:
   icon: 'terminal'
   color: 'blue'

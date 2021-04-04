@@ -11,10 +11,11 @@ A GitHub Action that setup Kubernetes tools (kubectl, kustomize, helm, kubeval, 
 
 |Parameter|Required|Default Value|Description|
 |:--:|:--:|:--:|:--|
-|`kubectl`|`false`|`1.18.2`| kubectl version. kubectl vesion can be found [here](https://github.com/kubernetes/kubernetes/releases)|
-|`kustomize`|`false`|`3.5.5`| kustomize version. kustomize vesion can be found [here](https://github.com/kubernetes-sigs/kustomize/releases)|
-|`helm`|`false`|`2.16.7`| helm version. helm vesion can be found [here](https://github.com/helm/helm/releases)|
-|`helmv3`|`false`|`3.2.1`| helm v3 version. helm v3 vesion can be found [here](https://github.com/helm/helm/releases)|
+|`setup-tools`|`false`|`""`|List of tool name to setup. By default, the action download and setup all supported Kubernetes tools. By specifying `setup-tools` you can choose which tools the action setup. Supported separator is `return` in multi-line string. Supported tools are `kubectl`, `kustomize`, `helm`, `helmv3`,  `kubeval`, `conftest`, `yq`, `rancher`, `tilt`, `skaffold`, `kube-score`|
+|`kubectl`|`false`|`1.20.2`| kubectl version. kubectl vesion can be found [here](https://github.com/kubernetes/kubernetes/releases)|
+|`kustomize`|`false`|`4.0.5`| kustomize version. kustomize vesion can be found [here](https://github.com/kubernetes-sigs/kustomize/releases)|
+|`helm`|`false`|`2.17.0`| helm version. helm vesion can be found [here](https://github.com/helm/helm/releases)|
+|`helmv3`|`false`|`3.5.2`| helm v3 version. helm v3 vesion can be found [here](https://github.com/helm/helm/releases)|
 |`kubeval`|`false`|`0.15.0`| kubeval version. kubeval vesion can be found [here](https://github.com/instrumenta/kubeval/releases)|
 |`conftest`|`false`|`0.19.0`| conftest version. conftest vesion can be found [here](https://github.com/open-policy-agent/conftest/releases)|
 |`rancher`|`false`|`2.4.10`| Rancher CLI version. Rancher CLI vesion can be found [here](https://github.com/rancher/cli/releases)|
@@ -27,17 +28,17 @@ A GitHub Action that setup Kubernetes tools (kubectl, kustomize, helm, kubeval, 
 ### Outputs
 |Parameter|Description|
 |:--:|:--|
-|`kubectl-path`| kubectl command path |
-|`kustomize-path`| kustomize command path |
-|`helm-path`| helm command path |
-|`helmv3-path`| helm v3 command path |
-|`kubeval-path`| kubeval command path |
-|`conftest-path`| conftest command path |
-|`yq-path`| yq command path |
-|`rancher-path`| rancher command path |
-|`tilt-path`| rancher command path |
-|`skaffold-path`| rancher command path |
-|`kube-score-path:`| rancher command path |
+|`kubectl-path`| kubectl command path if the action setup the tool, otherwise empty string |
+|`kustomize-path`| kustomize command path if the action setup the tool, otherwise empty string |
+|`helm-path`| helm command path if the action setup the tool, otherwise empty string |
+|`helmv3-path`| helm v3 command path if the action setup the tool, otherwise empty string |
+|`kubeval-path`| kubeval command path if the action setup the tool, otherwise empty string |
+|`conftest-path`| conftest command path if the action setup the tool, otherwise empty string |
+|`yq-path`| yq command path if the action setup the tool, otherwise empty string |
+|`rancher-path`| rancher command path if the action setup the tool, otherwise empty string |
+|`tilt-path`| rancher command path if the action setup the tool, otherwise empty string |
+|`skaffold-path`| rancher command path if the action setup the tool, otherwise empty string |
+|`kube-score-path:`| rancher command path if the action setup the tool, otherwise empty string |
 
 ### Sample Workflow
 
@@ -48,7 +49,7 @@ Specific versions for the commands can be setup by adding inputs parameters like
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: yokawasa/action-setup-kube-tools@v0.5.0
+    - uses: yokawasa/action-setup-kube-tools@v0.6.0
       with:
         kubectl: '1.17.1'
         kustomize: '3.7.0'
@@ -60,7 +61,6 @@ Specific versions for the commands can be setup by adding inputs parameters like
         tilt: '0.18.11'
         skaffold: '1.20.0'
         kube-score: '1.10.1'
-      id: setup
     - run: |
         kubectl version --client
         kustomize version
@@ -82,8 +82,7 @@ Default versions for the commands will be setup if you don't give any inputs lik
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: yokawasa/action-setup-kube-tools@v0.5.0
-      id: setup
+    - uses: yokawasa/action-setup-kube-tools@v0.6.0
     - run: |
         kubectl version --client
         kustomize version
@@ -98,6 +97,31 @@ Default versions for the commands will be setup if you don't give any inputs lik
         kube-score version
 ```
 
+By specifying setup-tools you can choose which tools the action setup. Supported separator is return in multi-line string like this
+
+```yaml
+  test: 
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: yokawasa/action-setup-kube-tools@v0.6.0
+      with:
+        setup-tools: |
+          kubectl
+          helmv3
+          kustomize
+          skaffold
+        kubectl: '1.17.1'
+        helmv3: '3.2.4'
+        kustomize: '3.7.0'
+        skaffold: '1.20.0'
+    - run: |
+        kubectl version --client
+        kustomize version
+        helmv3 version
+        skaffold version
+```
+
 
 ## Developing the action
 
@@ -108,14 +132,14 @@ npm install
 
 Build the typescript and package it for distribution by running [ncc](https://github.com/zeit/ncc)
 ```bash
-npm run build && npm run pack
+npm run build && npm run format && npm run lint && npm run pack
 ```
 
 Finally push the results
 ```
 git add dist
 git commit -a -m "prod dependencies"
-git push origin releases/v0.5.0
+git push origin releases/v0.6.0
 ```
 
 ## Contributing
