@@ -1615,7 +1615,13 @@ function run() {
             setupToolList = setupTools.split('\n').filter(x => x !== '');
         }
         // eslint-disable-next-line no-console
+        console.log(`setupToos=${setupTools}`);
+        // eslint-disable-next-line no-console
         console.log(`setupToolList.length=${setupToolList.length}`);
+        for (let i = 0; i < setupToolList.length; i++) {
+            // eslint-disable-next-line no-console
+            console.log(`setupToolList[${i}]=${setupToolList[i]}`);
+        }
         // eslint-disable-next-line github/array-foreach
         Tools.forEach(function (tool) {
             return __awaiter(this, void 0, void 0, function* () {
