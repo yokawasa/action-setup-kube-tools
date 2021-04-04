@@ -1610,9 +1610,14 @@ function run() {
             throw new Error('The action only support Linux OS!');
         }
         let setupToolList = [];
-        const setupTools = core.getInput('setup-tools', { required: false });
+        const setupTools = core
+            .getInput('setup-tools', { required: false })
+            .replace(/\s/g, '');
         if (setupTools) {
-            setupToolList = setupTools.split('\n').filter(x => x !== '');
+            //setupToolList = setupTools.split('\n').filter(x => x !== '')
+            setupToolList = setupTools.split('\n').filter(function (x) {
+                return x.replace(/\s/g, '') !== '';
+            });
         }
         // eslint-disable-next-line no-console
         console.log(`setupToos=${setupTools}`);

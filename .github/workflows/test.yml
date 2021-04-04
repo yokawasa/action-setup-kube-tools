@@ -120,9 +120,11 @@ jobs:
       with:
         setup-tools: |
           kubectl
-          helmv3
+          helmv3 
           kustomize
           skaffold
+          " " 
+          "" 
         kubectl: '1.17.1'
         helmv3: '3.2.4'
         kustomize: '3.7.0'
