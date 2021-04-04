@@ -229,13 +229,21 @@ async function run() {
   if (setupTools) {
     setupToolList = setupTools.split('\n').filter(x => x !== '')
   }
+  // eslint-disable-next-line no-console
+  console.log(`setupToolList.length=${setupToolList.length}`)
   // eslint-disable-next-line github/array-foreach
   Tools.forEach(async function(tool) {
     let toolPath = ''
     // By default, the action setup all supported Kubernetes tools, which mean
     // all tools can be setup when setuptools does not have any elements.
+    // eslint-disable-next-line no-console
+    console.log(`tool.name=${tool.name}`)
     if (setupToolList.length === 0 || setupToolList.includes(tool.name)) {
+      // eslint-disable-next-line no-console
+      console.log(`setting up tool.name: ${tool.name}`)
       let toolVersion = core.getInput(tool.name, {required: false})
+      // eslint-disable-next-line no-console
+      console.log(`tool version: ${toolVersion}`)
       if (!toolVersion) {
         toolVersion = tool.defaultVersion
       }
