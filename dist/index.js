@@ -1612,14 +1612,18 @@ function run() {
         if (!os.type().match(/^Linux/)) {
             throw new Error('The action only support Linux OS!');
         }
-        let setupTools = core.getInput('setup-tools').split("\n").filter(x => x !== "");
+        let setupToolList = [];
+        let setupTools = core.getInput('setup-tools', { required: false });
+        if (setupTools) {
+            setupToolList = setupTools.split("\n").filter(x => x !== "");
+        }
         // eslint-disable-next-line github/array-foreach
         Tools.forEach(function (tool) {
             return __awaiter(this, void 0, void 0, function* () {
                 let toolPath = "";
                 // By default, the action setup all supported Kubernetes tools, which mean
                 // all tools can be setup when setuptools does not have any elements.
-                if (setupTools.length == 0 || isContains(tool.name, setupTools)) {
+                if (setupToolList.length == 0 || isContains(tool.name, setupToolList)) {
                     let toolVersion = core.getInput(tool.name, { required: false });
                     if (!toolVersion) {
                         toolVersion = tool.defaultVersion;
