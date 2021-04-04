@@ -16,7 +16,7 @@ inputs:
     description: 'kustomize version'
   helm:
     required: false
-    default: '2.16.7'
+    default: '2.17.0'
     description: 'helm version'
   helmv3:
     required: false
