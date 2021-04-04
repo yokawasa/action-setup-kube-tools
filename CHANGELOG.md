@@ -4,6 +4,11 @@ All notable changes to the "action-setup-kube-tools" will be documented in this 
 
 ## v0.6.0
 - add tools setup option to choose which tool to setup - [Issue#8](https://github.com/yokawasa/action-setup-kube-tools/issues/8)
+- up default tool versions
+  - kubectl: 1.20.2
+  - kustomize: 4.0.5
+  - helm: 2.17.0
+  - helmv3: 3.5.2
 
 ## v0.5.0
 
