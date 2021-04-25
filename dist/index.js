@@ -1609,6 +1609,10 @@ function run() {
         if (!os.type().match(/^Linux/)) {
             throw new Error('The action only support Linux OS!');
         }
+        let failFast = true;
+        if (core.getInput('fail-fast', { required: false }).toLowerCase() === 'false') {
+            failFast = false;
+        }
         let setupToolList = [];
         const setupTools = core.getInput('setup-tools', { required: false }).trim();
         if (setupTools) {
@@ -1626,13 +1630,25 @@ function run() {
                 // By default, the action setup all supported Kubernetes tools, which mean
                 // all tools can be setup when setuptools does not have any elements.
                 if (setupToolList.length === 0 || setupToolList.includes(tool.name)) {
-                    let toolVersion = core.getInput(tool.name, { required: false });
+                    let toolVersion = core.getInput(tool.name, { required: false }).toLocaleUpperCase();
+                    if (toolVersion && toolVersion.startsWith('v')) {
+                        toolVersion = toolVersion.substr(1);
+                    }
                     if (!toolVersion) {
                         toolVersion = tool.defaultVersion;
                     }
-                    const cachedPath = yield downloadTool(toolVersion, tool);
-                    core.addPath(path.dirname(cachedPath));
-                    toolPath = cachedPath;
+                    try {
+                        const cachedPath = yield downloadTool(toolVersion, tool);
+                        core.addPath(path.dirname(cachedPath));
+                        toolPath = cachedPath;
+                    }
+                    catch (exception) {
+                        if (failFast) {
+                            // eslint-disable-next-line no-console
+                            console.log(`fail fast and exiting ${tool.name}!`);
+                            process.exit(1);
+                        }
+                    }
                 }
                 core.setOutput(`${tool.name}-path`, toolPath);
             });

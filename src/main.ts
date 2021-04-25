@@ -246,9 +246,11 @@ async function run() {
     // By default, the action setup all supported Kubernetes tools, which mean
     // all tools can be setup when setuptools does not have any elements.
     if (setupToolList.length === 0 || setupToolList.includes(tool.name)) {
-      let toolVersion = core.getInput(tool.name, {required: false}).toLocaleUpperCase()
+      let toolVersion = core
+        .getInput(tool.name, {required: false})
+        .toLocaleUpperCase()
       if (toolVersion && toolVersion.startsWith('v')) {
-        toolVersion = toolVersion.substr(1);
+        toolVersion = toolVersion.substr(1)
       }
       if (!toolVersion) {
         toolVersion = tool.defaultVersion
@@ -261,7 +263,7 @@ async function run() {
         if (failFast) {
           // eslint-disable-next-line no-console
           console.log(`fail fast and exiting ${tool.name}!`)
-          process.exit(0)
+          process.exit(1)
         }
       }
     }
