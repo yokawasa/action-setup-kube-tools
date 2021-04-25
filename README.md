@@ -11,6 +11,7 @@ A GitHub Action that setup Kubernetes tools (kubectl, kustomize, helm, kubeval, 
 
 |Parameter|Required|Default Value|Description|
 |:--:|:--:|:--:|:--|
+|`fail-fast`|`false`|`true`| the action immediately fails when it fails to download (ie. due to a bad version) |
 |`setup-tools`|`false`|`""`|List of tool name to setup. By default, the action download and setup all supported Kubernetes tools. By specifying `setup-tools` you can choose which tools the action setup. Supported separator is `return` in multi-line string. Supported tools are `kubectl`, `kustomize`, `helm`, `helmv3`,  `kubeval`, `conftest`, `yq`, `rancher`, `tilt`, `skaffold`, `kube-score`|
 |`kubectl`|`false`|`1.20.2`| kubectl version. kubectl vesion can be found [here](https://github.com/kubernetes/kubernetes/releases)|
 |`kustomize`|`false`|`4.0.5`| kustomize version. kustomize vesion can be found [here](https://github.com/kubernetes-sigs/kustomize/releases)|
@@ -23,8 +24,9 @@ A GitHub Action that setup Kubernetes tools (kubectl, kustomize, helm, kubeval, 
 |`skaffold`|`false`|`1.20.0`| Skaffold version. Skaffold vesion can be found [here](https://github.com/GoogleContainerTools/skaffold/releases)|
 |`kube-score`|`false`|`1.10.1`| kube-score version. kube-score vesion can be found [here](https://github.com/zegl/kube-score/releases)|
 
-> Supported Environments: Linux
-
+> - Supported Environments: Linux
+> - From v0.7.0, the action supports tool version 'v' prefix. Prior to v0.7.0, the action only accept the tool version without 'v' prefix but from v0.7.0 the action automatically add/remove the prefix as necessary
+> 
 ### Outputs
 |Parameter|Description|
 |:--:|:--|
@@ -54,7 +56,7 @@ Specific versions for the commands can be setup by adding inputs parameters like
         kubectl: '1.17.1'
         kustomize: '3.7.0'
         helm: '2.16.7'
-        helmv3: '3.2.4'
+        helmv3: '3.5.2'
         kubeval: '0.14.0'
         conftest: '0.18.2'
         rancher: '2.4.10'
@@ -112,7 +114,7 @@ By specifying setup-tools you can choose which tools the action setup. Supported
           kustomize
           skaffold
         kubectl: '1.17.1'
-        helmv3: '3.2.4'
+        helmv3: '3.5.2'
         kustomize: '3.7.0'
         skaffold: '1.20.0'
     - run: |
