@@ -262,7 +262,7 @@ async function run() {
       } catch (exception) {
         if (failFast) {
           // eslint-disable-next-line no-console
-          console.log(`fail fast and exiting ${tool.name}!`)
+          console.log(`Exiting immediately (fail fast) - [Reason] ${exception}`)
           process.exit(1)
         }
       }

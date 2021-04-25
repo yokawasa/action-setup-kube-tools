@@ -56,7 +56,7 @@ Specific versions for the commands can be setup by adding inputs parameters like
         kubectl: '1.17.1'
         kustomize: '3.7.0'
         helm: '2.16.7'
-        helmv3: '3.2.4'
+        helmv3: '3.5.2'
         kubeval: '0.14.0'
         conftest: '0.18.2'
         rancher: '2.4.10'
@@ -114,7 +114,7 @@ By specifying setup-tools you can choose which tools the action setup. Supported
           kustomize
           skaffold
         kubectl: '1.17.1'
-        helmv3: '3.2.4'
+        helmv3: '3.5.2'
         kustomize: '3.7.0'
         skaffold: '1.20.0'
     - run: |
