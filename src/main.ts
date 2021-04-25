@@ -248,7 +248,7 @@ async function run() {
     if (setupToolList.length === 0 || setupToolList.includes(tool.name)) {
       let toolVersion = core
         .getInput(tool.name, {required: false})
-        .toLocaleUpperCase()
+        .toLowerCase()
       if (toolVersion && toolVersion.startsWith('v')) {
         toolVersion = toolVersion.substr(1)
       }

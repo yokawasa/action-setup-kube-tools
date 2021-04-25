@@ -1630,7 +1630,9 @@ function run() {
                 // By default, the action setup all supported Kubernetes tools, which mean
                 // all tools can be setup when setuptools does not have any elements.
                 if (setupToolList.length === 0 || setupToolList.includes(tool.name)) {
-                    let toolVersion = core.getInput(tool.name, { required: false }).toLocaleUpperCase();
+                    let toolVersion = core
+                        .getInput(tool.name, { required: false })
+                        .toLowerCase();
                     if (toolVersion && toolVersion.startsWith('v')) {
                         toolVersion = toolVersion.substr(1);
                     }
