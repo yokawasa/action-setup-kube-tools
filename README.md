@@ -24,8 +24,9 @@ A GitHub Action that setup Kubernetes tools (kubectl, kustomize, helm, kubeval, 
 |`skaffold`|`false`|`1.20.0`| Skaffold version. Skaffold vesion can be found [here](https://github.com/GoogleContainerTools/skaffold/releases)|
 |`kube-score`|`false`|`1.10.1`| kube-score version. kube-score vesion can be found [here](https://github.com/zegl/kube-score/releases)|
 
-> Supported Environments: Linux
-
+> - Supported Environments: Linux
+> - From v0.7.0, the action supports tool version 'v' prefix. Prior to v0.7.0, the action only accept the tool version without 'v' prefix but from v0.7.0 the action automatically add/remove the prefix as necessary
+> 
 ### Outputs
 |Parameter|Description|
 |:--:|:--|
