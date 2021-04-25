@@ -2,6 +2,10 @@
 
 All notable changes to the "action-setup-kube-tools" will be documented in this file.
 
+## v0.7.0
+- Add fail-fast parameter (fail-fast:true by default) that allows you to choose to fail fast immediately when it fails to download (say due to a bad version) - [Issue#14](https://github.com/yokawasa/action-setup-kube-tools/issues/14)
+- Support tool version 'v' prefix. Prior to this, the action only accept the tool version without 'v' prefix, but now the action automatically add/remove the prefix as necessary
+
 ## v0.6.0
 - add tools setup option to choose which tool to setup - [Issue#8](https://github.com/yokawasa/action-setup-kube-tools/issues/8)
 - up default tool versions

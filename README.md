@@ -11,6 +11,7 @@ A GitHub Action that setup Kubernetes tools (kubectl, kustomize, helm, kubeval, 
 
 |Parameter|Required|Default Value|Description|
 |:--:|:--:|:--:|:--|
+|`fail-fast`|`false`|`true`| the action immediately fails when it fails to download (ie. due to a bad version) |
 |`setup-tools`|`false`|`""`|List of tool name to setup. By default, the action download and setup all supported Kubernetes tools. By specifying `setup-tools` you can choose which tools the action setup. Supported separator is `return` in multi-line string. Supported tools are `kubectl`, `kustomize`, `helm`, `helmv3`,  `kubeval`, `conftest`, `yq`, `rancher`, `tilt`, `skaffold`, `kube-score`|
 |`kubectl`|`false`|`1.20.2`| kubectl version. kubectl vesion can be found [here](https://github.com/kubernetes/kubernetes/releases)|
 |`kustomize`|`false`|`4.0.5`| kustomize version. kustomize vesion can be found [here](https://github.com/kubernetes-sigs/kustomize/releases)|

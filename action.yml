@@ -2,6 +2,10 @@ name: 'Setup Kubernetes Tools'
 description: 'Setup Kubernetes tools: kubectl, kustomize, helm, kubeval, conftest, yq, rancher, tilt, skaffold, kube-score'
 author: 'Yoichi Kawasaki @yokawasa'
 inputs:
+  fail-fast:
+    required: false
+    default: 'true'
+    description: 'the action immediately fails when it fails to download (ie. due to a bad version)'
   setup-tools:
     required: false
     default: ''
