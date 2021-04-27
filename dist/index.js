@@ -1552,7 +1552,7 @@ function getDownloadURL(commandName, version) {
         case 'conftest':
             return util.format('https://github.com/open-policy-agent/conftest/releases/download/v%s/conftest_%s_Linux_x86_64.tar.gz', version, version);
         case 'yq':
-            return util.format('https://github.com/mikefarah/yq/releases/v%s/download/yq_linux_amd64', version);
+            return util.format('https://github.com/mikefarah/yq/releases/download/v%s/yq_linux_amd64', version);
         case 'rancher':
             return util.format('https://github.com/rancher/cli/releases/download/v%s/rancher-linux-amd64-v%s.tar.gz', version, version);
         case 'tilt':

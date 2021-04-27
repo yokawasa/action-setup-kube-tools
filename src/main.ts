@@ -130,7 +130,7 @@ function getDownloadURL(commandName: string, version: string): string {
       )
     case 'yq':
       return util.format(
-        'https://github.com/mikefarah/yq/releases/v%s/download/yq_linux_amd64',
+        'https://github.com/mikefarah/yq/releases/download/v%s/yq_linux_amd64',
         version
       )
     case 'rancher':
