@@ -1462,9 +1462,9 @@ const defaultKubectlVersion = '1.20.2';
 const defaultKustomizeVersion = '4.0.5';
 const defaultHelmVersion = '2.17.0';
 const defaultHelmv3Version = '3.5.2';
-const defaultKubevalVersion = '0.15.0';
+const defaultKubevalVersion = '0.16.1';
 const defaultConftestVersion = '0.19.0';
-const defaultYqVersion = 'latest';
+const defaultYqVersion = '4.7.1';
 const defaultRancherVersion = '2.4.10';
 const defaultTiltVersion = '0.18.11';
 const defaultSkaffoldVersion = '1.20.0';
@@ -1548,11 +1548,11 @@ function getDownloadURL(commandName, version) {
         case 'helmv3':
             return util.format('https://get.helm.sh/helm-v%s-linux-amd64.tar.gz', version);
         case 'kubeval':
-            return util.format('https://github.com/instrumenta/kubeval/releases/download/%s/kubeval-linux-amd64.tar.gz', version);
+            return util.format('https://github.com/instrumenta/kubeval/releases/download/v%s/kubeval-linux-amd64.tar.gz', version);
         case 'conftest':
             return util.format('https://github.com/open-policy-agent/conftest/releases/download/v%s/conftest_%s_Linux_x86_64.tar.gz', version, version);
         case 'yq':
-            return util.format('https://github.com/mikefarah/yq/releases/%s/download/yq_linux_amd64', version);
+            return util.format('https://github.com/mikefarah/yq/releases/v%s/download/yq_linux_amd64', version);
         case 'rancher':
             return util.format('https://github.com/rancher/cli/releases/download/v%s/rancher-linux-amd64-v%s.tar.gz', version, version);
         case 'tilt':
