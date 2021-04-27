@@ -10,9 +10,9 @@ const defaultKubectlVersion = '1.20.2'
 const defaultKustomizeVersion = '4.0.5'
 const defaultHelmVersion = '2.17.0'
 const defaultHelmv3Version = '3.5.2'
-const defaultKubevalVersion = '0.15.0'
+const defaultKubevalVersion = '0.16.1'
 const defaultConftestVersion = '0.19.0'
-const defaultYqVersion = 'latest'
+const defaultYqVersion = '4.7.1'
 const defaultRancherVersion = '2.4.10'
 const defaultTiltVersion = '0.18.11'
 const defaultSkaffoldVersion = '1.20.0'
@@ -130,7 +130,7 @@ function getDownloadURL(commandName: string, version: string): string {
       )
     case 'yq':
       return util.format(
-        'https://github.com/mikefarah/yq/releases/v%s/download/yq_linux_amd64',
+        'https://github.com/mikefarah/yq/releases/download/v%s/yq_linux_amd64',
         version
       )
     case 'rancher':

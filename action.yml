@@ -28,12 +28,16 @@ inputs:
     description: 'helm3 version'
   kubeval:
     required: false
-    default: '0.15.0'
+    default: '0.16.1'
     description: 'kubeval version'
   conftest:
     required: false
     default: '0.19.0'
     description: 'conftest version'
+  yq:
+    required: false
+    default: '4.7.1'
+    description: 'yq version'
   rancher:
     required: false
     default: '2.4.10'
