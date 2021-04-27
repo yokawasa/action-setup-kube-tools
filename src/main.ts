@@ -119,7 +119,7 @@ function getDownloadURL(commandName: string, version: string): string {
       )
     case 'kubeval':
       return util.format(
-        'https://github.com/instrumenta/kubeval/releases/download/%s/kubeval-linux-amd64.tar.gz',
+        'https://github.com/instrumenta/kubeval/releases/download/v%s/kubeval-linux-amd64.tar.gz',
         version
       )
     case 'conftest':
@@ -130,7 +130,7 @@ function getDownloadURL(commandName: string, version: string): string {
       )
     case 'yq':
       return util.format(
-        'https://github.com/mikefarah/yq/releases/%s/download/yq_linux_amd64',
+        'https://github.com/mikefarah/yq/releases/v%s/download/yq_linux_amd64',
         version
       )
     case 'rancher':
