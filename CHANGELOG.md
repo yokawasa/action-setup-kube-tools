@@ -2,6 +2,10 @@
 
 All notable changes to the "action-setup-kube-tools" will be documented in this file.
 
+## v0.8.0
+- remove `helmv3` parameter and install helm v3 with `helm` parameter - [#19](https://github.com/yokawasa/action-setup-kube-tools/pull/19)
+- Instead add `helmv2` parameter to install helm v2
+
 ## v0.7.1
 - fix: missing v prefix from kubeval and yq - [#16](https://github.com/yokawasa/action-setup-kube-tools/pull/16)
 - changed default versions: yq v4.7.1, kubeval v0.16.1

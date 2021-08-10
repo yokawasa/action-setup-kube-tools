@@ -20,12 +20,12 @@ inputs:
     description: 'kustomize version'
   helm:
     required: false
-    default: '2.17.0'
-    description: 'helm version'
-  helmv3:
+    default: '3.6.3'
+    description: 'helm v3 version'
+  helmv2:
     required: false
-    default: '3.5.2'
-    description: 'helm3 version'
+    default: '2.17.0'
+    description: 'helm v2 version'
   kubeval:
     required: false
     default: '0.16.1'
@@ -61,8 +61,8 @@ outputs:
     description: 'kustomize command path if the action setup the tool, otherwise empty string'
   helm-path:
     description: 'helm command path if the action setup the tool, otherwise empty string'
-  helmv3-path:
-    description: 'helmv3 command path if the action setup the tool, otherwise empty string'
+  helmv2-path:
+    description: 'helmv2 command path if the action setup the tool, otherwise empty string'
   kubeval-path:
     description: 'kubeval command path if the action setup the tool, otherwise empty string'
   conftest-path:
