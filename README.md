@@ -15,8 +15,8 @@ A GitHub Action that setup Kubernetes tools (kubectl, kustomize, helm, kubeval, 
 |`setup-tools`|`false`|`""`|List of tool name to setup. By default, the action download and setup all supported Kubernetes tools. By specifying `setup-tools` you can choose which tools the action setup. Supported separator is `return` in multi-line string. Supported tools are `kubectl`, `kustomize`, `helm`, `helmv3`,  `kubeval`, `conftest`, `yq`, `rancher`, `tilt`, `skaffold`, `kube-score`|
 |`kubectl`|`false`|`1.20.2`| kubectl version. kubectl vesion can be found [here](https://github.com/kubernetes/kubernetes/releases)|
 |`kustomize`|`false`|`4.0.5`| kustomize version. kustomize vesion can be found [here](https://github.com/kubernetes-sigs/kustomize/releases)|
-|`helm`|`false`|`2.17.0`| helm version. helm vesion can be found [here](https://github.com/helm/helm/releases)|
-|`helmv3`|`false`|`3.5.2`| helm v3 version. helm v3 vesion can be found [here](https://github.com/helm/helm/releases)|
+|`helm`|`false`|`3.6.3`| helm v3 version. helm vesion can be found [here](https://github.com/helm/helm/releases)|
+|`helmv2`|`false`|`2.17.0`| helm v2 version. helm v3 vesion can be found [here](https://github.com/helm/helm/releases)|
 |`kubeval`|`false`|`0.16.1`| kubeval version (must be **0.16.1+**). kubeval vesion can be found [here](https://github.com/instrumenta/kubeval/releases)|
 |`conftest`|`false`|`0.19.0`| conftest version. conftest vesion can be found [here](https://github.com/open-policy-agent/conftest/releases)|
 |`yq`|`false`|`4.7.1`| yq version. yq vesion can be found [here](https://github.com/mikefarah/yq/releases/)|
@@ -34,7 +34,7 @@ A GitHub Action that setup Kubernetes tools (kubectl, kustomize, helm, kubeval, 
 |`kubectl-path`| kubectl command path if the action setup the tool, otherwise empty string |
 |`kustomize-path`| kustomize command path if the action setup the tool, otherwise empty string |
 |`helm-path`| helm command path if the action setup the tool, otherwise empty string |
-|`helmv3-path`| helm v3 command path if the action setup the tool, otherwise empty string |
+|`helmv2-path`| helm v2 command path if the action setup the tool, otherwise empty string |
 |`kubeval-path`| kubeval command path if the action setup the tool, otherwise empty string |
 |`conftest-path`| conftest command path if the action setup the tool, otherwise empty string |
 |`yq-path`| yq command path if the action setup the tool, otherwise empty string |
@@ -56,8 +56,8 @@ Specific versions for the commands can be setup by adding inputs parameters like
       with:
         kubectl: '1.17.1'
         kustomize: '3.7.0'
-        helm: '2.16.7'
-        helmv3: '3.5.2'
+        helm: '3.5.2'
+        helmv2: '2.16.7'
         kubeval: '0.16.1'
         conftest: '0.18.2'
         rancher: '2.4.10'
@@ -67,8 +67,8 @@ Specific versions for the commands can be setup by adding inputs parameters like
     - run: |
         kubectl version --client
         kustomize version
-        helm version --client
-        helmv3 version
+        helm version
+        helmv2 version --client
         kubeval --version
         conftest --version
         yq --version
@@ -89,8 +89,8 @@ Default versions for the commands will be setup if you don't give any inputs lik
     - run: |
         kubectl version --client
         kustomize version
-        helm version --client
-        helmv3 version
+        helm version
+        helmv2 version --client
         kubeval --version
         conftest --version
         yq --version
@@ -111,17 +111,17 @@ By specifying setup-tools you can choose which tools the action setup. Supported
       with:
         setup-tools: |
           kubectl
-          helmv3
+          helm
           kustomize
           skaffold
         kubectl: '1.17.1'
-        helmv3: '3.5.2'
+        helm: '3.5.2'
         kustomize: '3.7.0'
         skaffold: '1.20.0'
     - run: |
         kubectl version --client
         kustomize version
-        helmv3 version
+        helm version
         skaffold version
 ```
 

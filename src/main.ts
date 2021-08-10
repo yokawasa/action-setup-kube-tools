@@ -8,8 +8,8 @@ import * as core from '@actions/core'
 
 const defaultKubectlVersion = '1.20.2'
 const defaultKustomizeVersion = '4.0.5'
-const defaultHelmVersion = '2.17.0'
-const defaultHelmv3Version = '3.5.2'
+const defaultHelmVersion = '3.6.3'
+const defaultHelmv2Version = '2.17.0'
 const defaultKubevalVersion = '0.16.1'
 const defaultConftestVersion = '0.19.0'
 const defaultYqVersion = '4.7.1'
@@ -45,8 +45,8 @@ const Tools: Tool[] = [
     commandPathInPackage: 'linux-amd64/helm'
   },
   {
-    name: 'helmv3',
-    defaultVersion: defaultHelmv3Version,
+    name: 'helmv2',
+    defaultVersion: defaultHelmv2Version,
     isArchived: true,
     commandPathInPackage: 'linux-amd64/helm'
   },
@@ -112,7 +112,7 @@ function getDownloadURL(commandName: string, version: string): string {
         'https://get.helm.sh/helm-v%s-linux-amd64.tar.gz',
         version
       )
-    case 'helmv3':
+    case 'helmv2':
       return util.format(
         'https://get.helm.sh/helm-v%s-linux-amd64.tar.gz',
         version
