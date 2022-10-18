@@ -11,14 +11,14 @@ jobs:
   build: # make sure build/ci work properly
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - run: |
         npm install
         npm run all
-  test1: 
+  test1:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - uses: ./
       id: setup
     - run: |
@@ -50,20 +50,20 @@ jobs:
         ${kustomize} version
         ${helm} version
         ${helmv2} version --client
-        ${kubeval} --version 
-        ${conftest} --version 
-        ${yq} --version 
-        ${rancher} --version 
-        ${tilt} version 
-        ${skaffold} version 
+        ${kubeval} --version
+        ${conftest} --version
+        ${yq} --version
+        ${rancher} --version
+        ${tilt} version
+        ${skaffold} version
         ${kubescore} version
 
-  test2: 
+  test2:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - uses: ./
-      with: 
+      with:
         kubectl: '1.17.1'
         kustomize: '3.7.0'
         helm: '3.2.4'
@@ -105,18 +105,18 @@ jobs:
         ${kustomize} version
         ${helm} version
         ${helmv2} version --client
-        ${kubeval} --version 
-        ${conftest} --version 
-        ${yq} --version 
-        ${rancher} --version 
-        ${tilt} version 
-        ${skaffold} version 
+        ${kubeval} --version
+        ${conftest} --version
+        ${yq} --version
+        ${rancher} --version
+        ${tilt} version
+        ${skaffold} version
         ${kubescore} version
 
-  test3: 
+  test3:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - uses: ./
       with:
         setup-tools: |
@@ -160,22 +160,22 @@ jobs:
           ${helmv2} version --client
         fi
         if [ ! -z ${kubeval} ]; then
-          ${kubeval} --version 
+          ${kubeval} --version
         fi
         if [ ! -z ${conftest} ]; then
-          ${conftest} --version 
+          ${conftest} --version
         fi
         if [ ! -z ${yq} ]; then
-          ${yq} --version 
+          ${yq} --version
         fi
         if [ ! -z ${rancher} ]; then
-          ${rancher} --version 
+          ${rancher} --version
         fi
         if [ ! -z ${tilt} ]; then
-          ${tilt} version 
+          ${tilt} version
         fi
         if [ ! -z ${skaffold} ]; then
-          ${skaffold} version 
+          ${skaffold} version
         fi
         if [ ! -z ${kubescore} ]; then
           ${kubescore} version
