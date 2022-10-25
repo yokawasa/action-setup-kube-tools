@@ -17,7 +17,7 @@ A GitHub Action that setup Kubernetes tools (kubectl, kustomize, helm, kubeconfo
 |`kustomize`|`false`|`4.0.5`| kustomize version. kustomize vesion can be found [here](https://github.com/kubernetes-sigs/kustomize/releases)|
 |`helm`|`false`|`3.6.3`| helm v3 version. helm vesion can be found [here](https://github.com/helm/helm/releases)|
 |`helmv2`|`false`|`2.17.0`| helm v2 version. helm v3 vesion can be found [here](https://github.com/helm/helm/releases)|
-|`kubeval`|`false`|`0.16.1`| kubeval version (must be **0.16.1+**). kubeval vesion can be found [here](https://github.com/instrumenta/kubeval/releases)|
+|`kubeval`|`false`|`0.16.1`| kubeval version (must be **0.16.1+**). kubeval vesion can be found [here](https://github.com/instrumenta/kubeval/releases).<br> NOTE: this parameter is deprecating as `kubeval` is no longer maintained. A good replacement is [kubeconform](https://github.com/yannh/kubeconform). See also [this](https://github.com/instrumenta/kubeval) for more details.|
 |`kubeconform`|`false`|`0.5.0`| kubeconform version. kubeconform vesion can be found [here](https://github.com/yannh/kubeconform/releases)|
 |`conftest`|`false`|`0.19.0`| conftest version. conftest vesion can be found [here](https://github.com/open-policy-agent/conftest/releases)|
 |`yq`|`false`|`4.7.1`| yq version. yq vesion can be found [here](https://github.com/mikefarah/yq/releases/)|
