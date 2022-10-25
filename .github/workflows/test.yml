@@ -27,6 +27,7 @@ jobs:
         helm version --client
         helm version
         kubeval --version
+        kubeconform -v
         conftest --version
         yq --version
         rancher --version
@@ -39,6 +40,7 @@ jobs:
         helm=${{steps.setup.outputs.helm-path}}
         helmv2=${{steps.setup.outputs.helmv2-path}}
         kubeval=${{steps.setup.outputs.kubeval-path}}
+        kubeconform=${{steps.setup.outputs.kubeconform-path}}
         conftest=${{steps.setup.outputs.conftest-path}}
         yq=${{steps.setup.outputs.yq-path}}
         rancher=${{steps.setup.outputs.rancher-path}}
@@ -51,6 +53,7 @@ jobs:
         ${helm} version
         ${helmv2} version --client
         ${kubeval} --version
+        ${kubeconform} -v
         ${conftest} --version
         ${yq} --version
         ${rancher} --version
@@ -69,6 +72,7 @@ jobs:
         helm: '3.2.4'
         helmv2: '2.16.7'
         kubeval: '0.16.1'
+        kubeconform: '0.5.0'
         conftest: '0.18.2'
         yq: '4.7.1'
         rancher: '2.4.10'
@@ -82,6 +86,7 @@ jobs:
         helm version
         helmv2 version --client
         kubeval --version
+        kubeconform -v
         conftest --version
         yq --version
         rancher --version
@@ -94,6 +99,7 @@ jobs:
         helm=${{steps.setup.outputs.helm-path}}
         helmv2=${{steps.setup.outputs.helmv2-path}}
         kubeval=${{steps.setup.outputs.kubeval-path}}
+        kubeconform=${{steps.setup.outputs.kubeconform-path}}
         conftest=${{steps.setup.outputs.conftest-path}}
         yq=${{steps.setup.outputs.yq-path}}
         rancher=${{steps.setup.outputs.rancher-path}}
@@ -106,6 +112,7 @@ jobs:
         ${helm} version
         ${helmv2} version --client
         ${kubeval} --version
+        ${kubeconform} -v
         ${conftest} --version
         ${yq} --version
         ${rancher} --version
@@ -140,6 +147,7 @@ jobs:
         helm=${{steps.setup.outputs.helm-path}}
         helmv2=${{steps.setup.outputs.helmv2-path}}
         kubeval=${{steps.setup.outputs.kubeval-path}}
+        kubeconform=${{steps.setup.outputs.kubeconform-path}}
         conftest=${{steps.setup.outputs.conftest-path}}
         yq=${{steps.setup.outputs.yq-path}}
         rancher=${{steps.setup.outputs.rancher-path}}
@@ -161,6 +169,9 @@ jobs:
         fi
         if [ ! -z ${kubeval} ]; then
           ${kubeval} --version
+        fi
+        if [ ! -z ${kubeconform} ]; then
+          ${kubeconform} -v
         fi
         if [ ! -z ${conftest} ]; then
           ${conftest} --version

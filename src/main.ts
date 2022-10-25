@@ -11,6 +11,7 @@ const defaultKustomizeVersion = '4.0.5'
 const defaultHelmVersion = '3.6.3'
 const defaultHelmv2Version = '2.17.0'
 const defaultKubevalVersion = '0.16.1'
+const defaultKubeconformVersion = '0.5.0'
 const defaultConftestVersion = '0.19.0'
 const defaultYqVersion = '4.7.1'
 const defaultRancherVersion = '2.4.10'
@@ -55,6 +56,12 @@ const Tools: Tool[] = [
     defaultVersion: defaultKubevalVersion,
     isArchived: true,
     commandPathInPackage: 'kubeval'
+  },
+  {
+    name: 'kubeconform',
+    defaultVersion: defaultKubeconformVersion,
+    isArchived: true,
+    commandPathInPackage: 'kubeconform'
   },
   {
     name: 'conftest',
@@ -120,6 +127,11 @@ function getDownloadURL(commandName: string, version: string): string {
     case 'kubeval':
       return util.format(
         'https://github.com/instrumenta/kubeval/releases/download/v%s/kubeval-linux-amd64.tar.gz',
+        version
+      )
+    case 'kubeconform':
+      return util.format(
+        'https://github.com/yannh/kubeconform/releases/download/v%s/kubeconform-linux-amd64.tar.gz',
         version
       )
     case 'conftest':

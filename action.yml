@@ -1,5 +1,5 @@
 name: 'Setup Kubernetes Tools'
-description: 'Setup Kubernetes tools: kubectl, kustomize, helm, kubeval, conftest, yq, rancher, tilt, skaffold, kube-score'
+description: 'Setup Kubernetes tools: kubectl, kustomize, helm, kubeconform, conftest, yq, rancher, tilt, skaffold, kube-score'
 author: 'Yoichi Kawasaki @yokawasa'
 inputs:
   fail-fast:
@@ -30,6 +30,10 @@ inputs:
     required: false
     default: '0.16.1'
     description: 'kubeval version'
+  kubeconform:
+    required: false
+    default: '0.5.0'
+    description: 'kubeconform version'
   conftest:
     required: false
     default: '0.19.0'
