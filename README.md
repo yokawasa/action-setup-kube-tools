@@ -71,7 +71,7 @@ Specific versions for the commands can be setup by adding inputs parameters like
         kustomize version
         helm version
         helmv2 version --client
-        kubeconform --version
+        kubeconform -v
         conftest --version
         yq --version
         rancher --version
@@ -93,7 +93,7 @@ Default versions for the commands will be setup if you don't give any inputs lik
         kustomize version
         helm version
         helmv2 version --client
-        kubeconform --version
+        kubeconform -v
         conftest --version
         yq --version
         rancher --version

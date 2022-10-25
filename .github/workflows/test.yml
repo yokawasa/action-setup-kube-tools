@@ -27,7 +27,7 @@ jobs:
         helm version --client
         helm version
         kubeval --version
-        kubeconform --version
+        kubeconform -v
         conftest --version
         yq --version
         rancher --version
@@ -53,7 +53,7 @@ jobs:
         ${helm} version
         ${helmv2} version --client
         ${kubeval} --version
-        ${kubeconform} --version
+        ${kubeconform} -v
         ${conftest} --version
         ${yq} --version
         ${rancher} --version
@@ -86,7 +86,7 @@ jobs:
         helm version
         helmv2 version --client
         kubeval --version
-        kubeconform --version
+        kubeconform -v
         conftest --version
         yq --version
         rancher --version
@@ -112,7 +112,7 @@ jobs:
         ${helm} version
         ${helmv2} version --client
         ${kubeval} --version
-        ${kubeconform} --version
+        ${kubeconform} -v
         ${conftest} --version
         ${yq} --version
         ${rancher} --version
@@ -171,7 +171,7 @@ jobs:
           ${kubeval} --version
         fi
         if [ ! -z ${kubeconform} ]; then
-          ${kubeconform} --version
+          ${kubeconform} -v
         fi
         if [ ! -z ${conftest} ]; then
           ${conftest} --version
