@@ -2,6 +2,10 @@
 
 All notable changes to the "action-setup-kube-tools" will be documented in this file.
 
+## v0.9.0
+
+- Support [kubeconform](https://github.com/yannh/kubeconform) - [[#32](https://github.com/yokawasa/action-setup-kube-tools/issues/32)]
+
 ## v0.8.3
 
 - Upgrade to Node 16 and upgrade GitHub libs by @yhrn in [#31](https://github.com/yokawasa/action-setup-kube-tools/pull/31)

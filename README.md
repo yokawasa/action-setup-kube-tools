@@ -3,7 +3,7 @@
 </p>
 
 # action-setup-kube-tools
-A GitHub Action that setup Kubernetes tools (kubectl, kustomize, helm, kubeval, conftest, yq, rancher, tilt, skaffold, kube-score) and cache them on the runner. It is like a typescript version of [stefanprodan/kube-tools](https://github.com/stefanprodan/kube-tools) with no command input param, but as compared with [it](https://github.com/stefanprodan/kube-tools), it's **very fast** as it installs the tools asynchronously.
+A GitHub Action that setup Kubernetes tools (kubectl, kustomize, helm, kubeconform, conftest, yq, rancher, tilt, skaffold, kube-score) and cache them on the runner. It is like a typescript version of [stefanprodan/kube-tools](https://github.com/stefanprodan/kube-tools) with no command input param, but as compared with [it](https://github.com/stefanprodan/kube-tools), it's **very fast** as it installs the tools asynchronously.
 
 ## Usage
 
@@ -18,6 +18,7 @@ A GitHub Action that setup Kubernetes tools (kubectl, kustomize, helm, kubeval, 
 |`helm`|`false`|`3.6.3`| helm v3 version. helm vesion can be found [here](https://github.com/helm/helm/releases)|
 |`helmv2`|`false`|`2.17.0`| helm v2 version. helm v3 vesion can be found [here](https://github.com/helm/helm/releases)|
 |`kubeval`|`false`|`0.16.1`| kubeval version (must be **0.16.1+**). kubeval vesion can be found [here](https://github.com/instrumenta/kubeval/releases)|
+|`kubeconform`|`false`|`0.5.0`| kubeconform version. kubeconform vesion can be found [here](https://github.com/yannh/kubeconform/releases)|
 |`conftest`|`false`|`0.19.0`| conftest version. conftest vesion can be found [here](https://github.com/open-policy-agent/conftest/releases)|
 |`yq`|`false`|`4.7.1`| yq version. yq vesion can be found [here](https://github.com/mikefarah/yq/releases/)|
 |`rancher`|`false`|`2.4.10`| Rancher CLI version. Rancher CLI vesion can be found [here](https://github.com/rancher/cli/releases)|
@@ -36,6 +37,7 @@ A GitHub Action that setup Kubernetes tools (kubectl, kustomize, helm, kubeval, 
 |`helm-path`| helm command path if the action setup the tool, otherwise empty string |
 |`helmv2-path`| helm v2 command path if the action setup the tool, otherwise empty string |
 |`kubeval-path`| kubeval command path if the action setup the tool, otherwise empty string |
+|`kubeconform-path`| kubeconform command path if the action setup the tool, otherwise empty string |
 |`conftest-path`| conftest command path if the action setup the tool, otherwise empty string |
 |`yq-path`| yq command path if the action setup the tool, otherwise empty string |
 |`rancher-path`| rancher command path if the action setup the tool, otherwise empty string |
@@ -52,13 +54,13 @@ Specific versions for the commands can be setup by adding inputs parameters like
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: yokawasa/action-setup-kube-tools@v0.8.3
+    - uses: yokawasa/action-setup-kube-tools@v0.9.0
       with:
         kubectl: '1.17.1'
         kustomize: '3.7.0'
         helm: '3.5.2'
         helmv2: '2.16.7'
-        kubeval: '0.16.1'
+        kubeconform: '0.5.0'
         conftest: '0.18.2'
         rancher: '2.4.10'
         tilt: '0.18.11'
@@ -69,7 +71,7 @@ Specific versions for the commands can be setup by adding inputs parameters like
         kustomize version
         helm version
         helmv2 version --client
-        kubeval --version
+        kubeconform --version
         conftest --version
         yq --version
         rancher --version
@@ -85,13 +87,13 @@ Default versions for the commands will be setup if you don't give any inputs lik
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: yokawasa/action-setup-kube-tools@v0.8.3
+    - uses: yokawasa/action-setup-kube-tools@v0.9.0
     - run: |
         kubectl version --client
         kustomize version
         helm version
         helmv2 version --client
-        kubeval --version
+        kubeconform --version
         conftest --version
         yq --version
         rancher --version
@@ -107,7 +109,7 @@ By specifying setup-tools you can choose which tools the action setup. Supported
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: yokawasa/action-setup-kube-tools@v0.8.3
+    - uses: yokawasa/action-setup-kube-tools@v0.9.0
       with:
         setup-tools: |
           kubectl
@@ -142,7 +144,7 @@ Finally push the results
 ```
 git add dist
 git commit -a -m "prod dependencies"
-git push origin releases/v0.8.3
+git push origin releases/v0.9.0
 ```
 
 ## Contributing

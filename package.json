@@ -1,8 +1,8 @@
 {
   "name": "action-setup-kube-tools",
-  "version": "0.8.3",
+  "version": "0.9.0",
   "private": true,
-  "description": "Github Action that install Kubernetes tools (kubectl, kustomize, helm, kubeval, conftest, yq, rancher) and cache them on the runner",
+  "description": "Github Action that install Kubernetes tools (kubectl, kustomize, helm, kubeconform, conftest, yq, etc.) and cache them on the runner",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
@@ -25,6 +25,7 @@
     "kustomize",
     "helm",
     "kubeval",
+    "kubeconform",
     "conftest",
     "yq",
     "rancher",
