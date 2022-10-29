@@ -54,7 +54,7 @@ Specific versions for the commands can be setup by adding inputs parameters like
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: yokawasa/action-setup-kube-tools@v0.9.0
+    - uses: yokawasa/action-setup-kube-tools@v0.9.1
       with:
         kubectl: '1.17.1'
         kustomize: '3.7.0'
@@ -87,7 +87,7 @@ Default versions for the commands will be setup if you don't give any inputs lik
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: yokawasa/action-setup-kube-tools@v0.9.0
+    - uses: yokawasa/action-setup-kube-tools@v0.9.1
     - run: |
         kubectl version --client
         kustomize version
@@ -109,7 +109,7 @@ By specifying setup-tools you can choose which tools the action setup. Supported
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: yokawasa/action-setup-kube-tools@v0.9.0
+    - uses: yokawasa/action-setup-kube-tools@v0.9.1
       with:
         setup-tools: |
           kubectl
@@ -144,7 +144,7 @@ Finally push the results
 ```
 git add dist
 git commit -a -m "prod dependencies"
-git push origin releases/v0.9.0
+git push origin releases/v0.9.1
 ```
 
 ## Contributing
