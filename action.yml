@@ -16,7 +16,7 @@ inputs:
     description: 'kubectl version'
   kustomize:
     required: false
-    default: '4.0.5'
+    default: '4.5.7'
     description: 'kustomize version'
   helm:
     required: false
