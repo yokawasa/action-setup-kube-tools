@@ -7,7 +7,7 @@ import * as toolCache from '@actions/tool-cache'
 import * as core from '@actions/core'
 
 const defaultKubectlVersion = '1.20.2'
-const defaultKustomizeVersion = '4.0.5'
+const defaultKustomizeVersion = '4.5.7'
 const defaultHelmVersion = '3.6.3'
 const defaultHelmv2Version = '2.17.0'
 const defaultKubevalVersion = '0.16.1'
