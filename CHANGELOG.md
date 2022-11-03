@@ -2,6 +2,10 @@
 
 All notable changes to the "action-setup-kube-tools" will be documented in this file.
 
+## v0.9.2
+
+- upgrade kustomize 4.5.7 by @MichaelSp - [#39](https://github.com/yokawasa/action-setup-kube-tools/pull/39)
+
 ## v0.9.1
 
 - Fix the issue : Using the action produces set-output deprecation warnings by @msg-freiheit - [#36](https://github.com/yokawasa/action-setup-kube-tools/issues/36)
