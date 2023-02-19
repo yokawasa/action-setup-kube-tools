@@ -2,6 +2,21 @@
 
 All notable changes to the "action-setup-kube-tools" will be documented in this file.
 
+## v0.9.3
+
+- Bump json5 from 2.1.3 to 2.2.3 - [#41](https://github.com/yokawasa/action-setup-kube-tools/pull/41)
+- Bump undici from 5.11.0 to 5.19.1 - [#43](https://github.com/yokawasa/action-setup-kube-tools/pull/43)
+- upgrade default tools version - [#44](https://github.com/yokawasa/action-setup-kube-tools/pull/44)
+  - kubectl from 1.20.2 to  1.24.10
+  - kustomize from 4.5.7 to 5.0.0
+  - helm from 3.6.3 to 3.11.1
+  - conftest from 0.19.0 to 0.39.0
+  - yq from 4.7.1 to 4.30.7
+  - rancher from 2.4.10 to 2.7.0
+  - tilt from 0.18.11 to 0.31.2 
+  - skaffold from 1.20.0 to 2.1.0
+  - kube-score from 1.10.1 to 1.16.1
+
 ## v0.9.2
 
 - upgrade kustomize 4.5.7 by @MichaelSp - [#39](https://github.com/yokawasa/action-setup-kube-tools/pull/39)
