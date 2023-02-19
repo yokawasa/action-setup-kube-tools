@@ -13,18 +13,18 @@ A GitHub Action that setup Kubernetes tools (kubectl, kustomize, helm, kubeconfo
 |:--:|:--:|:--:|:--|
 |`fail-fast`|`false`|`true`| the action immediately fails when it fails to download (ie. due to a bad version) |
 |`setup-tools`|`false`|`""`|List of tool name to setup. By default, the action download and setup all supported Kubernetes tools. By specifying `setup-tools` you can choose which tools the action setup. Supported separator is `return` in multi-line string. Supported tools are `kubectl`, `kustomize`, `helm`, `helmv3`,  `kubeval`, `conftest`, `yq`, `rancher`, `tilt`, `skaffold`, `kube-score`|
-|`kubectl`|`false`|`1.20.2`| kubectl version. kubectl vesion can be found [here](https://github.com/kubernetes/kubernetes/releases)|
-|`kustomize`|`false`|`4.5.7`| kustomize version. kustomize vesion can be found [here](https://github.com/kubernetes-sigs/kustomize/releases)|
-|`helm`|`false`|`3.6.3`| helm v3 version. helm vesion can be found [here](https://github.com/helm/helm/releases)|
+|`kubectl`|`false`|`1.24.10`| kubectl version. kubectl vesion can be found [here](https://github.com/kubernetes/kubernetes/releases)|
+|`kustomize`|`false`|`5.0.0`| kustomize version. kustomize vesion can be found [here](https://github.com/kubernetes-sigs/kustomize/releases)|
+|`helm`|`false`|`3.11.1`| helm v3 version. helm vesion can be found [here](https://github.com/helm/helm/releases)|
 |`helmv2`|`false`|`2.17.0`| helm v2 version. helm v3 vesion can be found [here](https://github.com/helm/helm/releases)|
 |`kubeval`|`false`|`0.16.1`| kubeval version (must be **0.16.1+**). kubeval vesion can be found [here](https://github.com/instrumenta/kubeval/releases).<br> NOTE: this parameter is deprecating as `kubeval` is no longer maintained. A good replacement is [kubeconform](https://github.com/yannh/kubeconform). See also [this](https://github.com/instrumenta/kubeval) for more details.|
 |`kubeconform`|`false`|`0.5.0`| kubeconform version. kubeconform vesion can be found [here](https://github.com/yannh/kubeconform/releases)|
-|`conftest`|`false`|`0.19.0`| conftest version. conftest vesion can be found [here](https://github.com/open-policy-agent/conftest/releases)|
-|`yq`|`false`|`4.7.1`| yq version. yq vesion can be found [here](https://github.com/mikefarah/yq/releases/)|
-|`rancher`|`false`|`2.4.10`| Rancher CLI version. Rancher CLI vesion can be found [here](https://github.com/rancher/cli/releases)|
-|`tilt`|`false`|`0.18.11`| Tilt version. Tilt vesion can be found [here](https://github.com/tilt-dev/tilt/releases)|
-|`skaffold`|`false`|`1.20.0`| Skaffold version. Skaffold vesion can be found [here](https://github.com/GoogleContainerTools/skaffold/releases)|
-|`kube-score`|`false`|`1.10.1`| kube-score version. kube-score vesion can be found [here](https://github.com/zegl/kube-score/releases)|
+|`conftest`|`false`|`0.39.0`| conftest version. conftest vesion can be found [here](https://github.com/open-policy-agent/conftest/releases)|
+|`yq`|`false`|`4.30.7`| yq version. yq vesion can be found [here](https://github.com/mikefarah/yq/releases/)|
+|`rancher`|`false`|`2.7.0`| Rancher CLI version. Rancher CLI vesion can be found [here](https://github.com/rancher/cli/releases)|
+|`tilt`|`false`|`0.31.2`| Tilt version. Tilt vesion can be found [here](https://github.com/tilt-dev/tilt/releases)|
+|`skaffold`|`false`|`2.1.0`| Skaffold version. Skaffold vesion can be found [here](https://github.com/GoogleContainerTools/skaffold/releases)|
+|`kube-score`|`false`|`1.16.1`| kube-score version. kube-score vesion can be found [here](https://github.com/zegl/kube-score/releases)|
 
 > - Supported Environments: Linux
 > - From v0.7.0, the action supports tool version 'v' prefix. Prior to v0.7.0, the action only accept the tool version without 'v' prefix but from v0.7.0 the action automatically add/remove the prefix as necessary
@@ -146,6 +146,20 @@ git add dist
 git commit -a -m "prod dependencies"
 git push origin releases/v0.9.2
 ```
+
+## References
+
+- https://kubernetes.io/releases/
+- https://github.com/kubernetes-sigs/kustomize/releases
+- https://github.com/helm/helm/releases
+- https://helm.sh/docs/topics/version_skew/
+- https://github.com/instrumenta/kubeval/releases
+- https://github.com/open-policy-agent/conftest/releases
+- https://github.com/mikefarah/yq/releases
+- https://github.com/rancher/cli/releases
+- https://github.com/tilt-dev/tilt/releases
+- https://github.com/GoogleContainerTools/skaffold/releases
+- https://github.com/zegl/kube-score/releases
 
 ## Contributing
 Bug reports and pull requests are welcome on GitHub at https://github.com/yokawasa/action-setup-kube-tools
