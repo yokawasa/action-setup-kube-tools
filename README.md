@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://github.com/yokawasa/action-setup-kube-tools/actions"><img alt="action-setup-kube-tools status" src="https://github.com/yokawasa/action-setup-kube-tools/workflows/build-test/badge.svg"></a>
+[![action-setup-kube-tools Test](https://github.com/yokawasa/action-setup-kube-tools/actions/workflows/test.yml/badge.svg)](https://github.com/yokawasa/action-setup-kube-tools/actions/workflows/test.yml)
 </p>
 
 # action-setup-kube-tools
