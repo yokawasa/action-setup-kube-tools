@@ -2,6 +2,10 @@
 
 All notable changes to the "action-setup-kube-tools" will be documented in this file.
 
+## v0.10.0
+
+- update action to node20
+
 ## v0.9.3
 
 - Bump json5 from 2.1.3 to 2.2.3 - [#41](https://github.com/yokawasa/action-setup-kube-tools/pull/41)
