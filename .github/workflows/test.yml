@@ -11,14 +11,17 @@ jobs:
   build: # make sure build/ci work properly
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
     - run: |
         npm install
         npm run all
   test1:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: ./
       id: setup
     - run: |
@@ -64,7 +67,7 @@ jobs:
   test2:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: ./
       with:
         kubectl: '1.17.1'
@@ -123,7 +126,7 @@ jobs:
   test3:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: ./
       with:
         setup-tools: |
