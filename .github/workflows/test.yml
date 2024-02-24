@@ -208,10 +208,24 @@ jobs:
         echo "skaffold: ${{steps.setup.outputs.skaffold-path}}"
         echo "kubescore: ${{steps.setup.outputs.kube-score-path}}"
 
+        kubectl=${{steps.setup.outputs.kubectl-path}}
+        kustomize=${{steps.setup.outputs.kustomize-path}}
+        helm=${{steps.setup.outputs.helm-path}}
+        kubeval=${{steps.setup.outputs.kubeval-path}}
+        kubeconform=${{steps.setup.outputs.kubeconform-path}}
+        conftest=${{steps.setup.outputs.conftest-path}}
+        yq=${{steps.setup.outputs.yq-path}}
+        rancher=${{steps.setup.outputs.rancher-path}}
+        tilt=${{steps.setup.outputs.tilt-path}}
+        skaffold=${{steps.setup.outputs.skaffold-path}}
+        kubescore=${{steps.setup.outputs.kube-score-path}}
+
         if [ ! -z ${kubectl} ]; then
+          file ${kubectl}
           ${kubectl} version --client
         fi
         if [ ! -z ${kustomize} ]; then
+          file ${kustomize}
           ${kustomize} version
         fi
         if [ ! -z ${helm} ]; then
