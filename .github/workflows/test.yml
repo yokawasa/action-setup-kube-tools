@@ -25,9 +25,8 @@ jobs:
     - uses: ./
       id: setup
     - run: |
-        kubectl version --client
+        kubectl version --output=json
         kustomize version
-        helm version --client
         helm version
         kubeval --version
         kubeconform -v
@@ -50,7 +49,7 @@ jobs:
         skaffold=${{steps.setup.outputs.skaffold-path}}
         kubescore=${{steps.setup.outputs.kube-score-path}}
 
-        ${kubectl} version --client
+        ${kubectl} version --output=json
         ${kustomize} version
         ${helm} version
         ${kubeval} --version
@@ -81,7 +80,7 @@ jobs:
         kube-score: '1.10.1'
       id: setup
     - run: |
-        kubectl version --client
+        kubectl version --output=json
         kustomize version
         helm version
         kubeval --version
@@ -105,7 +104,7 @@ jobs:
         skaffold=${{steps.setup.outputs.skaffold-path}}
         kubescore=${{steps.setup.outputs.kube-score-path}}
 
-        ${kubectl} version --client
+        ${kubectl} version --output=json
         ${kustomize} version
         ${helm} version
         ${kubeval} --version
@@ -135,7 +134,7 @@ jobs:
         skaffold: '1.20.0'
       id: setup
     - run: |
-        kubectl version --client
+        kubectl version --output=json
         kustomize version
         helm version
         skaffold version
@@ -153,7 +152,7 @@ jobs:
         kubescore=${{steps.setup.outputs.kube-score-path}}
 
         if [ ! -z ${kubectl} ]; then
-          ${kubectl} version --client
+          ${kubectl} version --output=json 
         fi
         if [ ! -z ${kustomize} ]; then
           ${kustomize} version
