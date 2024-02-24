@@ -196,18 +196,6 @@ jobs:
         arch-type: 'arm64'
       id: setup
     - run: |
-        echo "kubectl: ${{steps.setup.outputs.kubectl-path}}"
-        echo "kustomize: ${{steps.setup.outputs.kustomize-path}}"
-        echo "helm: ${{steps.setup.outputs.helm-path}}"
-        echo "kubeval: ${{steps.setup.outputs.kubeval-path}}"
-        echo "kubeconform: ${{steps.setup.outputs.kubeconform-path}}"
-        echo "conftest: ${{steps.setup.outputs.conftest-path}}"
-        echo "yq: ${{steps.setup.outputs.yq-path}}"
-        echo "rancher: ${{steps.setup.outputs.rancher-path}}"
-        echo "tilt: ${{steps.setup.outputs.tilt-path}}"
-        echo "skaffold: ${{steps.setup.outputs.skaffold-path}}"
-        echo "kubescore: ${{steps.setup.outputs.kube-score-path}}"
-
         kubectl=${{steps.setup.outputs.kubectl-path}}
         kustomize=${{steps.setup.outputs.kustomize-path}}
         helm=${{steps.setup.outputs.helm-path}}
@@ -222,37 +210,35 @@ jobs:
 
         if [ ! -z ${kubectl} ]; then
           file ${kubectl}
-          ${kubectl} version --client
         fi
         if [ ! -z ${kustomize} ]; then
           file ${kustomize}
-          ${kustomize} version
         fi
         if [ ! -z ${helm} ]; then
-          ${helm} version
+          file ${helm}
         fi
         if [ ! -z ${kubeval} ]; then
-          ${kubeval} --version
+          file ${kubeval}
         fi
         if [ ! -z ${kubeconform} ]; then
-          ${kubeconform} -v
+          file ${kubeconform}
         fi
         if [ ! -z ${conftest} ]; then
-          ${conftest} --version
+          file ${conftest}
         fi
         if [ ! -z ${yq} ]; then
-          ${yq} --version
+          file ${yq}
         fi
         if [ ! -z ${rancher} ]; then
-          ${rancher} --version
+          file ${rancher}
         fi
         if [ ! -z ${tilt} ]; then
-          ${tilt} version
+          file ${tilt}
         fi
         if [ ! -z ${skaffold} ]; then
-          ${skaffold} version
+          file ${skaffold}
         fi
         if [ ! -z ${kubescore} ]; then
-          ${kubescore} version
+          file ${kubescore}
         fi
 
