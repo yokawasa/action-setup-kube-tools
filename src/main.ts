@@ -209,9 +209,6 @@ async function downloadTool(
           extractTarBaseDirPath
         )
 
-        // if (commandPathInPackage.indexOf('%s') > 0) {
-        //   commandPathInPackage = util.format(commandPathInPackage, version)
-        // }
         commandPathInPackage = replacePlaceholders(
           commandPathInPackage,
           version,

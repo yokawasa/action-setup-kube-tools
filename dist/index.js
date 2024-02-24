@@ -207,9 +207,6 @@ function downloadTool(version, archType, tool) {
                     const extractTarBaseDirPath = util.format('%s_%s', packagePath, tool.name);
                     fs.mkdirSync(extractTarBaseDirPath);
                     const extractedDirPath = yield toolCache.extractTar(packagePath, extractTarBaseDirPath);
-                    // if (commandPathInPackage.indexOf('%s') > 0) {
-                    //   commandPathInPackage = util.format(commandPathInPackage, version)
-                    // }
                     commandPathInPackage = replacePlaceholders(commandPathInPackage, version, archType);
                     commandPath = util.format('%s/%s', extractedDirPath, commandPathInPackage);
                 }
