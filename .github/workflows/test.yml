@@ -27,7 +27,6 @@ jobs:
     - run: |
         kubectl version --client
         kustomize version
-        helm version --client
         helm version
         kubeval --version
         kubeconform -v
@@ -41,7 +40,6 @@ jobs:
         kubectl=${{steps.setup.outputs.kubectl-path}}
         kustomize=${{steps.setup.outputs.kustomize-path}}
         helm=${{steps.setup.outputs.helm-path}}
-        helmv2=${{steps.setup.outputs.helmv2-path}}
         kubeval=${{steps.setup.outputs.kubeval-path}}
         kubeconform=${{steps.setup.outputs.kubeconform-path}}
         conftest=${{steps.setup.outputs.conftest-path}}
@@ -54,7 +52,6 @@ jobs:
         ${kubectl} version --client
         ${kustomize} version
         ${helm} version
-        ${helmv2} version --client
         ${kubeval} --version
         ${kubeconform} -v
         ${conftest} --version
@@ -73,7 +70,6 @@ jobs:
         kubectl: '1.17.1'
         kustomize: '3.7.0'
         helm: '3.2.4'
-        helmv2: '2.16.7'
         kubeval: '0.16.1'
         kubeconform: '0.5.0'
         conftest: '0.18.2'
@@ -87,7 +83,6 @@ jobs:
         kubectl version --client
         kustomize version
         helm version
-        helmv2 version --client
         kubeval --version
         kubeconform -v
         conftest --version
@@ -100,7 +95,6 @@ jobs:
         kubectl=${{steps.setup.outputs.kubectl-path}}
         kustomize=${{steps.setup.outputs.kustomize-path}}
         helm=${{steps.setup.outputs.helm-path}}
-        helmv2=${{steps.setup.outputs.helmv2-path}}
         kubeval=${{steps.setup.outputs.kubeval-path}}
         kubeconform=${{steps.setup.outputs.kubeconform-path}}
         conftest=${{steps.setup.outputs.conftest-path}}
@@ -113,7 +107,6 @@ jobs:
         ${kubectl} version --client
         ${kustomize} version
         ${helm} version
-        ${helmv2} version --client
         ${kubeval} --version
         ${kubeconform} -v
         ${conftest} --version
@@ -129,6 +122,7 @@ jobs:
     - uses: actions/checkout@v4
     - uses: ./
       with:
+        arch-type: 'amd64'
         setup-tools: |
           kubectl
           helm
@@ -148,7 +142,6 @@ jobs:
         kubectl=${{steps.setup.outputs.kubectl-path}}
         kustomize=${{steps.setup.outputs.kustomize-path}}
         helm=${{steps.setup.outputs.helm-path}}
-        helmv2=${{steps.setup.outputs.helmv2-path}}
         kubeval=${{steps.setup.outputs.kubeval-path}}
         kubeconform=${{steps.setup.outputs.kubeconform-path}}
         conftest=${{steps.setup.outputs.conftest-path}}
@@ -166,9 +159,6 @@ jobs:
         fi
         if [ ! -z ${helm} ]; then
           ${helm} version
-        fi
-        if [ ! -z ${helmv2} ]; then
-          ${helmv2} version --client
         fi
         if [ ! -z ${kubeval} ]; then
           ${kubeval} --version
@@ -194,3 +184,60 @@ jobs:
         if [ ! -z ${kubescore} ]; then
           ${kubescore} version
         fi
+
+  # ARM test
+  test4:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: ./
+      with:
+        arch-type: 'arm64'
+      id: setup
+    - run: |
+        kubectl=${{steps.setup.outputs.kubectl-path}}
+        kustomize=${{steps.setup.outputs.kustomize-path}}
+        helm=${{steps.setup.outputs.helm-path}}
+        kubeval=${{steps.setup.outputs.kubeval-path}}
+        kubeconform=${{steps.setup.outputs.kubeconform-path}}
+        conftest=${{steps.setup.outputs.conftest-path}}
+        yq=${{steps.setup.outputs.yq-path}}
+        rancher=${{steps.setup.outputs.rancher-path}}
+        tilt=${{steps.setup.outputs.tilt-path}}
+        skaffold=${{steps.setup.outputs.skaffold-path}}
+        kubescore=${{steps.setup.outputs.kube-score-path}}
+
+        if [ ! -z ${kubectl} ]; then
+          file ${kubectl}
+        fi
+        if [ ! -z ${kustomize} ]; then
+          file ${kustomize}
+        fi
+        if [ ! -z ${helm} ]; then
+          file ${helm}
+        fi
+        if [ ! -z ${kubeval} ]; then
+          file ${kubeval}
+        fi
+        if [ ! -z ${kubeconform} ]; then
+          file ${kubeconform}
+        fi
+        if [ ! -z ${conftest} ]; then
+          file ${conftest}
+        fi
+        if [ ! -z ${yq} ]; then
+          file ${yq}
+        fi
+        if [ ! -z ${rancher} ]; then
+          file ${rancher}
+        fi
+        if [ ! -z ${tilt} ]; then
+          file ${tilt}
+        fi
+        if [ ! -z ${skaffold} ]; then
+          file ${skaffold}
+        fi
+        if [ ! -z ${kubescore} ]; then
+          file ${kubescore}
+        fi
+

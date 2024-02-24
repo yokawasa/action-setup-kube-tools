@@ -41,10 +41,10 @@ const util = __importStar(__nccwpck_require__(3837));
 const fs = __importStar(__nccwpck_require__(7147));
 const toolCache = __importStar(__nccwpck_require__(7784));
 const core = __importStar(__nccwpck_require__(2186));
+const defaultProcessorArchType = 'amd64';
 const defaultKubectlVersion = '1.24.10';
 const defaultKustomizeVersion = '5.0.0';
 const defaultHelmVersion = '3.11.1';
-const defaultHelmv2Version = '2.17.0';
 const defaultKubevalVersion = '0.16.1';
 const defaultKubeconformVersion = '0.5.0';
 const defaultConftestVersion = '0.39.0';
@@ -58,121 +58,156 @@ const Tools = [
         name: 'kubectl',
         defaultVersion: defaultKubectlVersion,
         isArchived: false,
+        supportArm: true,
         commandPathInPackage: 'kubectl'
     },
     {
         name: 'kustomize',
         defaultVersion: defaultKustomizeVersion,
         isArchived: true,
+        supportArm: true,
         commandPathInPackage: 'kustomize'
     },
     {
         name: 'helm',
         defaultVersion: defaultHelmVersion,
         isArchived: true,
-        commandPathInPackage: 'linux-amd64/helm'
-    },
-    {
-        name: 'helmv2',
-        defaultVersion: defaultHelmv2Version,
-        isArchived: true,
-        commandPathInPackage: 'linux-amd64/helm'
+        supportArm: true,
+        commandPathInPackage: 'linux-{arch}/helm'
     },
     {
         name: 'kubeval',
         defaultVersion: defaultKubevalVersion,
         isArchived: true,
+        supportArm: false,
         commandPathInPackage: 'kubeval'
     },
     {
         name: 'kubeconform',
         defaultVersion: defaultKubeconformVersion,
         isArchived: true,
+        supportArm: true,
         commandPathInPackage: 'kubeconform'
     },
     {
         name: 'conftest',
         defaultVersion: defaultConftestVersion,
         isArchived: true,
+        supportArm: true,
         commandPathInPackage: 'conftest'
     },
     {
         name: 'yq',
         defaultVersion: defaultYqVersion,
         isArchived: false,
-        commandPathInPackage: 'yq_linux_amd64'
+        supportArm: true,
+        commandPathInPackage: 'yq_linux_{arch}'
     },
     {
         name: 'rancher',
         defaultVersion: defaultRancherVersion,
         isArchived: true,
-        commandPathInPackage: 'rancher-v%s/rancher'
+        supportArm: true,
+        commandPathInPackage: 'rancher-v{ver}/rancher'
     },
     {
         name: 'tilt',
         defaultVersion: defaultTiltVersion,
         isArchived: true,
+        supportArm: true,
         commandPathInPackage: 'tilt'
     },
     {
         name: 'skaffold',
         defaultVersion: defaultSkaffoldVersion,
         isArchived: false,
-        commandPathInPackage: 'skaffold-linux-amd64'
+        supportArm: true,
+        commandPathInPackage: 'skaffold-linux-{arch}'
     },
     {
         name: 'kube-score',
         defaultVersion: defaultKubeScoreVersion,
         isArchived: false,
+        supportArm: true,
         commandPathInPackage: 'kube-score'
     }
 ];
-function getDownloadURL(commandName, version) {
+// Replace all {ver} and {arch} placeholders in the source format string with the actual values
+function replacePlaceholders(format, version, archType) {
+    return format.replace(/{ver}|{arch}/g, match => {
+        return match === '{ver}' ? version : archType;
+    });
+}
+function getDownloadURL(commandName, version, archType) {
+    let actualArchType = archType;
+    let urlFormat = '';
     switch (commandName) {
         case 'kubectl':
-            return util.format('https://storage.googleapis.com/kubernetes-release/release/v%s/bin/linux/amd64/kubectl', version);
+            urlFormat =
+                'https://storage.googleapis.com/kubernetes-release/release/v{ver}/bin/linux/{arch}/kubectl';
+            break;
         case 'kustomize':
-            return util.format('https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv%s/kustomize_v%s_linux_amd64.tar.gz', version, version);
+            urlFormat =
+                'https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv{ver}/kustomize_v{ver}_linux_{arch}.tar.gz';
+            break;
         case 'helm':
-            return util.format('https://get.helm.sh/helm-v%s-linux-amd64.tar.gz', version);
-        case 'helmv2':
-            return util.format('https://get.helm.sh/helm-v%s-linux-amd64.tar.gz', version);
+            urlFormat = 'https://get.helm.sh/helm-v{ver}-linux-{arch}.tar.gz';
+            break;
         case 'kubeval':
-            return util.format('https://github.com/instrumenta/kubeval/releases/download/v%s/kubeval-linux-amd64.tar.gz', version);
+            actualArchType = 'amd64'; // kubeval only supports amd64
+            urlFormat =
+                'https://github.com/instrumenta/kubeval/releases/download/v{ver}/kubeval-linux-{arch}.tar.gz';
+            break;
         case 'kubeconform':
-            return util.format('https://github.com/yannh/kubeconform/releases/download/v%s/kubeconform-linux-amd64.tar.gz', version);
+            urlFormat =
+                'https://github.com/yannh/kubeconform/releases/download/v{ver}/kubeconform-linux-{arch}.tar.gz';
+            break;
         case 'conftest':
-            return util.format('https://github.com/open-policy-agent/conftest/releases/download/v%s/conftest_%s_Linux_x86_64.tar.gz', version, version);
+            actualArchType = archType === 'arm64' ? archType : 'x86_64';
+            urlFormat =
+                'https://github.com/open-policy-agent/conftest/releases/download/v{ver}/conftest_{ver}_Linux_{arch}.tar.gz';
+            break;
         case 'yq':
-            return util.format('https://github.com/mikefarah/yq/releases/download/v%s/yq_linux_amd64', version);
+            urlFormat =
+                'https://github.com/mikefarah/yq/releases/download/v{ver}/yq_linux_{arch}';
+            break;
         case 'rancher':
-            return util.format('https://github.com/rancher/cli/releases/download/v%s/rancher-linux-amd64-v%s.tar.gz', version, version);
+            actualArchType = archType === 'arm64' ? 'arm' : archType;
+            urlFormat =
+                'https://github.com/rancher/cli/releases/download/v{ver}/rancher-linux-{arch}-v{ver}.tar.gz';
+            break;
         case 'tilt':
-            return util.format('https://github.com/tilt-dev/tilt/releases/download/v%s/tilt.%s.linux.x86_64.tar.gz', version, version);
+            actualArchType = archType === 'arm64' ? archType : 'x86_64';
+            urlFormat =
+                'https://github.com/tilt-dev/tilt/releases/download/v{ver}/tilt.{ver}.linux.{arch}.tar.gz';
+            break;
         case 'skaffold':
-            return util.format('https://github.com/GoogleContainerTools/skaffold/releases/download/v%s/skaffold-linux-amd64', version);
+            urlFormat =
+                'https://github.com/GoogleContainerTools/skaffold/releases/download/v{ver}/skaffold-linux-{arch}';
+            break;
         case 'kube-score':
-            return util.format('https://github.com/zegl/kube-score/releases/download/v%s/kube-score_%s_linux_amd64', version, version);
+            urlFormat =
+                'https://github.com/zegl/kube-score/releases/download/v{ver}/kube-score_{ver}_linux_{arch}';
+            break;
         default:
             return '';
     }
+    return replacePlaceholders(urlFormat, version, actualArchType);
 }
-function downloadTool(version, tool) {
+function downloadTool(version, archType, tool) {
     return __awaiter(this, void 0, void 0, function* () {
         let cachedToolPath = toolCache.find(tool.name, version);
         let commandPathInPackage = tool.commandPathInPackage;
         let commandPath = '';
         if (!cachedToolPath) {
-            const downloadURL = getDownloadURL(tool.name, version);
+            const downloadURL = getDownloadURL(tool.name, version, archType);
             try {
                 const packagePath = yield toolCache.downloadTool(downloadURL);
                 if (tool.isArchived) {
                     const extractTarBaseDirPath = util.format('%s_%s', packagePath, tool.name);
                     fs.mkdirSync(extractTarBaseDirPath);
                     const extractedDirPath = yield toolCache.extractTar(packagePath, extractTarBaseDirPath);
-                    if (commandPathInPackage.indexOf('%s') > 0) {
-                        commandPathInPackage = util.format(commandPathInPackage, version);
-                    }
+                    commandPathInPackage = replacePlaceholders(commandPathInPackage, version, archType);
                     commandPath = util.format('%s/%s', extractedDirPath, commandPathInPackage);
                 }
                 else {
@@ -205,6 +240,10 @@ function run() {
         if (core.getInput('fail-fast', { required: false }).toLowerCase() === 'false') {
             failFast = false;
         }
+        let archType = defaultProcessorArchType;
+        if (core.getInput('arch-type', { required: false }).toLowerCase() === 'arm64') {
+            archType = 'arm64';
+        }
         let setupToolList = [];
         const setupTools = core.getInput('setup-tools', { required: false }).trim();
         if (setupTools) {
@@ -231,8 +270,13 @@ function run() {
                     if (!toolVersion) {
                         toolVersion = tool.defaultVersion;
                     }
+                    if (archType === 'arm64' && !tool.supportArm) {
+                        // eslint-disable-next-line no-console
+                        console.log(`The ${tool.name} does not support arm64 architecture, skip it`);
+                        return;
+                    }
                     try {
-                        const cachedPath = yield downloadTool(toolVersion, tool);
+                        const cachedPath = yield downloadTool(toolVersion, archType, tool);
                         core.addPath(path.dirname(cachedPath));
                         toolPath = cachedPath;
                     }
