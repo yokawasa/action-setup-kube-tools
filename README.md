@@ -51,7 +51,7 @@ Specific versions for the commands can be setup by adding inputs parameters like
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: yokawasa/action-setup-kube-tools@v0.10.0
+    - uses: yokawasa/action-setup-kube-tools@v0.11.0
       with:
         kubectl: '1.17.1'
         kustomize: '3.7.0'
@@ -82,7 +82,7 @@ Default versions for the commands will be setup if you don't give any inputs lik
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: yokawasa/action-setup-kube-tools@v0.10.0
+    - uses: yokawasa/action-setup-kube-tools@v0.11.0
     - run: |
         kubectl version --client
         kustomize version
@@ -103,7 +103,7 @@ By specifying setup-tools you can choose which tools the action setup. Supported
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: yokawasa/action-setup-kube-tools@v0.10.0
+    - uses: yokawasa/action-setup-kube-tools@v0.11.0
       with:
         setup-tools: |
           kubectl
@@ -119,6 +119,22 @@ By specifying setup-tools you can choose which tools the action setup. Supported
         kustomize version
         helm version
         skaffold version
+```
+
+By specifying arch-type you can choose the processor architecture type of the tool binary to setup. Supported types are only `amd64`(default) and `arm64`.
+
+```yaml
+  test: 
+    steps:
+    - uses: actions/checkout@v4
+    - uses: yokawasa/action-setup-kube-tools@v0.11.0
+      with:
+        arch-type: 'arm64'
+        setup-tools: |
+          kubectl
+        kubectl: '1.25'
+    - run: |
+        kubectl version --client
 ```
 
 
