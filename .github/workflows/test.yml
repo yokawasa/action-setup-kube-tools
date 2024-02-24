@@ -41,7 +41,6 @@ jobs:
         kubectl=${{steps.setup.outputs.kubectl-path}}
         kustomize=${{steps.setup.outputs.kustomize-path}}
         helm=${{steps.setup.outputs.helm-path}}
-        helmv2=${{steps.setup.outputs.helmv2-path}}
         kubeval=${{steps.setup.outputs.kubeval-path}}
         kubeconform=${{steps.setup.outputs.kubeconform-path}}
         conftest=${{steps.setup.outputs.conftest-path}}
@@ -54,7 +53,6 @@ jobs:
         ${kubectl} version --client
         ${kustomize} version
         ${helm} version
-        ${helmv2} version --client
         ${kubeval} --version
         ${kubeconform} -v
         ${conftest} --version
@@ -73,7 +71,6 @@ jobs:
         kubectl: '1.17.1'
         kustomize: '3.7.0'
         helm: '3.2.4'
-        helmv2: '2.16.7'
         kubeval: '0.16.1'
         kubeconform: '0.5.0'
         conftest: '0.18.2'
@@ -87,7 +84,6 @@ jobs:
         kubectl version --client
         kustomize version
         helm version
-        helmv2 version --client
         kubeval --version
         kubeconform -v
         conftest --version
@@ -100,7 +96,6 @@ jobs:
         kubectl=${{steps.setup.outputs.kubectl-path}}
         kustomize=${{steps.setup.outputs.kustomize-path}}
         helm=${{steps.setup.outputs.helm-path}}
-        helmv2=${{steps.setup.outputs.helmv2-path}}
         kubeval=${{steps.setup.outputs.kubeval-path}}
         kubeconform=${{steps.setup.outputs.kubeconform-path}}
         conftest=${{steps.setup.outputs.conftest-path}}
@@ -113,7 +108,6 @@ jobs:
         ${kubectl} version --client
         ${kustomize} version
         ${helm} version
-        ${helmv2} version --client
         ${kubeval} --version
         ${kubeconform} -v
         ${conftest} --version
@@ -148,7 +142,6 @@ jobs:
         kubectl=${{steps.setup.outputs.kubectl-path}}
         kustomize=${{steps.setup.outputs.kustomize-path}}
         helm=${{steps.setup.outputs.helm-path}}
-        helmv2=${{steps.setup.outputs.helmv2-path}}
         kubeval=${{steps.setup.outputs.kubeval-path}}
         kubeconform=${{steps.setup.outputs.kubeconform-path}}
         conftest=${{steps.setup.outputs.conftest-path}}
@@ -166,9 +159,6 @@ jobs:
         fi
         if [ ! -z ${helm} ]; then
           ${helm} version
-        fi
-        if [ ! -z ${helmv2} ]; then
-          ${helmv2} version --client
         fi
         if [ ! -z ${kubeval} ]; then
           ${kubeval} --version
