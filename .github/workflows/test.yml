@@ -193,7 +193,7 @@ jobs:
     - uses: actions/checkout@v4
     - uses: ./
       with:
-        arch-type: 'amd64'
+        arch-type: 'arm64'
       id: setup
     - run: |
         echo "kubectl: ${{steps.setup.outputs.kubectl-path}}"
