@@ -207,3 +207,38 @@ jobs:
         echo "tilt: ${{steps.setup.outputs.tilt-path}}"
         echo "skaffold: ${{steps.setup.outputs.skaffold-path}}"
         echo "kubescore: ${{steps.setup.outputs.kube-score-path}}"
+
+        if [ ! -z ${kubectl} ]; then
+          ${kubectl} version --client
+        fi
+        if [ ! -z ${kustomize} ]; then
+          ${kustomize} version
+        fi
+        if [ ! -z ${helm} ]; then
+          ${helm} version
+        fi
+        if [ ! -z ${kubeval} ]; then
+          ${kubeval} --version
+        fi
+        if [ ! -z ${kubeconform} ]; then
+          ${kubeconform} -v
+        fi
+        if [ ! -z ${conftest} ]; then
+          ${conftest} --version
+        fi
+        if [ ! -z ${yq} ]; then
+          ${yq} --version
+        fi
+        if [ ! -z ${rancher} ]; then
+          ${rancher} --version
+        fi
+        if [ ! -z ${tilt} ]; then
+          ${tilt} version
+        fi
+        if [ ! -z ${skaffold} ]; then
+          ${skaffold} version
+        fi
+        if [ ! -z ${kubescore} ]; then
+          ${kubescore} version
+        fi
+
