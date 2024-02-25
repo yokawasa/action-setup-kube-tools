@@ -53,15 +53,15 @@ Specific versions for the commands can be setup by adding inputs parameters like
     - uses: actions/checkout@v2
     - uses: yokawasa/action-setup-kube-tools@v0.11.0
       with:
-        kubectl: '1.17.1'
-        kustomize: '3.7.0'
-        helm: '3.5.2'
+        kubectl: '1.25'
+        kustomize: '5.0.0'
+        helm: '3.11.1'
         kubeconform: '0.5.0'
-        conftest: '0.18.2'
-        rancher: '2.4.10'
-        tilt: '0.18.11'
-        skaffold: '1.20.0'
-        kube-score: '1.10.1'
+        conftest: '0.39.0'
+        rancher: '2.7.0'
+        tilt: '0.31.2'
+        skaffold: '2.1.0'
+        kube-score: '1.16.1'
     - run: |
         kubectl version --client
         kustomize version
@@ -110,10 +110,10 @@ By specifying setup-tools you can choose which tools the action setup. Supported
           helm
           kustomize
           skaffold
-        kubectl: '1.17.1'
-        helm: '3.5.2'
-        kustomize: '3.7.0'
-        skaffold: '1.20.0'
+        kubectl: '1.25'
+        helm: '3.11.1'
+        kustomize: '5.0.0'
+        skaffold: '2.1.0'
     - run: |
         kubectl version --client
         kustomize version
@@ -132,9 +132,18 @@ By specifying arch-type you can choose the processor architecture type of the to
         arch-type: 'arm64'
         setup-tools: |
           kubectl
+          helm
+          kustomize
+          skaffold
         kubectl: '1.25'
+        helm: '3.11.1'
+        kustomize: '5.0.0'
+        skaffold: '2.1.0'
     - run: |
         kubectl version --client
+        kustomize version
+        helm version
+        skaffold version
 ```
 
 
