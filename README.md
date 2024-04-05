@@ -51,7 +51,7 @@ Specific versions for the commands can be setup by adding inputs parameters like
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: yokawasa/action-setup-kube-tools@v0.11.0
+    - uses: yokawasa/action-setup-kube-tools@v0.11.1
       with:
         kubectl: '1.25'
         kustomize: '5.0.0'
@@ -82,7 +82,7 @@ Default versions for the commands will be setup if you don't give any inputs lik
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: yokawasa/action-setup-kube-tools@v0.11.0
+    - uses: yokawasa/action-setup-kube-tools@v0.11.1
     - run: |
         kubectl version --client
         kustomize version
@@ -103,7 +103,7 @@ By specifying setup-tools you can choose which tools the action setup. Supported
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: yokawasa/action-setup-kube-tools@v0.11.0
+    - uses: yokawasa/action-setup-kube-tools@v0.11.1
       with:
         setup-tools: |
           kubectl
@@ -127,7 +127,7 @@ By specifying arch-type you can choose the processor architecture type of the to
   test: 
     steps:
     - uses: actions/checkout@v4
-    - uses: yokawasa/action-setup-kube-tools@v0.11.0
+    - uses: yokawasa/action-setup-kube-tools@v0.11.1
       with:
         arch-type: 'arm64'
         setup-tools: |
@@ -163,7 +163,7 @@ Finally push the results
 ```
 git add dist
 git commit -a -m "prod dependencies"
-git push origin releases/v0.10.0
+git push origin releases/v0.11.1
 ```
 
 ## References
@@ -182,3 +182,7 @@ git push origin releases/v0.10.0
 
 ## Contributing
 Bug reports and pull requests are welcome on GitHub at https://github.com/yokawasa/action-setup-kube-tools
+
+## Changelog
+
+Please see the [list of releases](https://github.com/yokawasa/action-setup-kube-tools/releases) for information on changes between releases.
