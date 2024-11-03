@@ -1,6 +1,6 @@
 {
   "name": "action-setup-kube-tools",
-  "version": "0.11.1",
+  "version": "0.11.2",
   "private": true,
   "description": "Github Action that install Kubernetes tools (kubectl, kustomize, helm, kubeconform, conftest, yq, etc.) and cache them on the runner",
   "main": "lib/main.js",
