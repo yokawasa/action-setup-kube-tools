@@ -144,7 +144,7 @@ function getDownloadURL(commandName, version, archType) {
     switch (commandName) {
         case 'kubectl':
             urlFormat =
-                'https://storage.googleapis.com/kubernetes-release/release/v{ver}/bin/linux/{arch}/kubectl';
+                'https://dl.k8s.io/release/v{ver}/bin/linux/{arch}/kubectl';
             break;
         case 'kustomize':
             urlFormat =
