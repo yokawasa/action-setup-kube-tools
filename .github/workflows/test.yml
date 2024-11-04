@@ -1,5 +1,8 @@
 name: "action-setup-kube-tools Test"
 on:
+  # Schedule run: Runs at 00:00, only on Mondays (Japan Time)
+  schedule:
+    - cron: '0 15 * * 1' 
   pull_request:
   push:
     branches:
