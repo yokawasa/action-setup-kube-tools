@@ -14,7 +14,7 @@ jobs:
   build: # make sure build/ci work properly
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - uses: actions/setup-node@v5
       with:
         node-version: '20.x'
@@ -24,7 +24,7 @@ jobs:
   test-all-tools-no-input:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - uses: ./
       id: setup
     - run: |
@@ -67,7 +67,7 @@ jobs:
   test-all-tools-with-versrion-input:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - uses: ./
       with:
         kubectl: '1.17.1'
@@ -122,7 +122,7 @@ jobs:
   test-with-some-tools-selected-and-latest:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - uses: ./
       with:
         arch-type: 'amd64'
@@ -192,7 +192,7 @@ jobs:
   test-force-arm64:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - uses: ./
       with:
         arch-type: 'arm64'
@@ -234,7 +234,7 @@ jobs:
   test-arm-autodetect:
     runs-on: ubuntu-24.04-arm
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - name: Show runner arch
       run: |
         echo "runner.os=${{ runner.os }}"
