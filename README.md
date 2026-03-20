@@ -53,7 +53,7 @@ Pinned versions (reproducible):
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: yokawasa/action-setup-kube-tools@v0.13.1
+    - uses: yokawasa/action-setup-kube-tools@v0.13.2
       with:
         kubectl: '1.34.1'
         kustomize: '5.7.1'
@@ -84,7 +84,7 @@ Default versions for the commands will be setup if you don't give any inputs lik
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: yokawasa/action-setup-kube-tools@v0.13.1
+    - uses: yokawasa/action-setup-kube-tools@v0.13.2
     - run: |
         kubectl version --client
         kustomize version
@@ -105,7 +105,7 @@ By specifying setup-tools you can choose which tools the action setup. Supported
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: yokawasa/action-setup-kube-tools@v0.13.1
+    - uses: yokawasa/action-setup-kube-tools@v0.13.2
       with:
         setup-tools: |
           kubectl
@@ -129,7 +129,7 @@ Architecture is automatically detected on the runner (amd64 or arm64). You can o
   test: 
     steps:
     - uses: actions/checkout@v4
-    - uses: yokawasa/action-setup-kube-tools@v0.13.1
+    - uses: yokawasa/action-setup-kube-tools@v0.13.2
       with:
         # arch-type is optional; uncomment to force arm64
         # arch-type: 'arm64'
@@ -155,7 +155,7 @@ Explicit latest inputs (optional):
   test: 
     steps:
     - uses: actions/checkout@v4
-    - uses: yokawasa/action-setup-kube-tools@v0.13.1
+    - uses: yokawasa/action-setup-kube-tools@v0.13.2
       with:
         # arch-type is optional; uncomment to force arm64
         # arch-type: 'arm64'
