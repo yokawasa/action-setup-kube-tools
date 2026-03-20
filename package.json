@@ -3,6 +3,9 @@
   "name": "action-setup-kube-tools",
   "version": "0.11.2",
   "private": true,
+  "engines": {
+    "node": ">=24"
+  },
   "description": "Github Action that install Kubernetes tools (kubectl, kustomize, helm, kubeconform, conftest, yq, etc.) and cache them on the runner",
   "main": "lib/main.js",
   "scripts": {
@@ -50,7 +53,7 @@
     "eslint": "^9.35.0",
     "eslint-plugin-github": "^6.0.0",
     "eslint-plugin-jest": "^22.21.0",
-    "js-yaml": "^3.13.1",
+    "js-yaml": "^4.1.1",
     "prettier": "^1.19.1",
     "ts-jest": "^26.1.0",
     "typescript": "^5.9.2"
