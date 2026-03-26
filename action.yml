@@ -15,15 +15,15 @@ inputs:
     description: 'List of tool name to setup. By default, the action download and setup all supported Kubernetes tools. By specifying "setup-tools" you can choose which tools the action setup. Supported separator is return in multi-line string. Supported tools are "kubectl", "kustomize", "helm", "helmv3", "kubeval", "conftest", "yq", "rancher", "tilt", "skaffold", "kube-score"'
   kubectl:
     required: false
-    default: '1.34.1'
+    default: '1.35.3'
     description: "kubectl version or 'latest'"
   kustomize:
     required: false
-    default: '5.7.1'
+    default: '5.8.1'
     description: "kustomize version or 'latest'"
   helm:
     required: false
-    default: '3.19.0'
+    default: '3.20.1'
     description: "helm version or 'latest'"
   kubeval:
     required: false
@@ -35,23 +35,23 @@ inputs:
     description: "kubeconform version or 'latest'"
   conftest:
     required: false
-    default: '0.62.0'
+    default: '0.67.1'
     description: "conftest version or 'latest'"
   yq:
     required: false
-    default: '4.47.2'
+    default: '4.52.5'
     description: "yq version or 'latest'"
   rancher:
     required: false
-    default: '2.12.1'
+    default: '2.13.3'
     description: "rancher cli version or 'latest'"
   tilt:
     required: false
-    default: '0.35.1'
+    default: '0.37.0'
     description: "tilt version or 'latest'"
   skaffold:
     required: false
-    default: '2.16.1'
+    default: '2.18.1'
     description: "skaffold version or 'latest'"
   kube-score:
     required: false
