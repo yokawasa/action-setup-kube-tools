@@ -1,7 +1,11 @@
 [![action-setup-kube-tools Test](https://github.com/yokawasa/action-setup-kube-tools/actions/workflows/test.yml/badge.svg)](https://github.com/yokawasa/action-setup-kube-tools/actions/workflows/test.yml)
 
 # action-setup-kube-tools
+
 A GitHub Action that setup Kubernetes tools (kubectl, kustomize, helm, kubeconform, conftest, yq, rancher, tilt, skaffold, kube-score) and cache them on the runner. It is like a typescript version of [stefanprodan/kube-tools](https://github.com/stefanprodan/kube-tools) with no command input param, but as compared with [it](https://github.com/stefanprodan/kube-tools), it's **very fast** as it installs the tools asynchronously.
+
+> [!NOTE]
+> This repository enforces immutable releases — published release tags and assets cannot be modified or deleted, ensuring supply chain integrity.
 
 ## Usage
 
