@@ -383,6 +383,27 @@ async function downloadTool(
   return cachedCommand
 }
 
+// Parse a ".tool-versions" (asdf/mise) style file into a { tool: version } map.
+// Each line is "<tool> <version> [extra versions...]"; only the first version
+// token is used. Inline "#" comments, blank lines, and lines without a version
+// are ignored. Tool names and versions are lower-cased to match input handling.
+function parseVersionFile(filePath: string): {[tool: string]: string} {
+  const versions: {[tool: string]: string} = {}
+  const content = fs.readFileSync(filePath, 'utf8')
+  for (const rawLine of content.split('\n')) {
+    const line = rawLine.split('#')[0].trim()
+    if (!line) {
+      continue
+    }
+    const parts = line.split(/\s+/)
+    if (parts.length < 2) {
+      continue
+    }
+    versions[parts[0].toLowerCase()] = parts[1].toLowerCase()
+  }
+  return versions
+}
+
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 async function run() {
   if (!os.type().match(/^Linux/)) {
@@ -414,6 +435,23 @@ async function run() {
       .filter(x => x !== '')
   }
 
+  // Optionally load tool versions from a ".tool-versions" style file. A tool's
+  // own version input still takes precedence over its version-file entry.
+  let versionFileMap: {[tool: string]: string} = {}
+  const versionFile = core.getInput('version-file', {required: false}).trim()
+  if (versionFile) {
+    if (!fs.existsSync(versionFile)) {
+      throw new Error(`version-file not found: ${versionFile}`)
+    }
+    versionFileMap = parseVersionFile(versionFile)
+    // eslint-disable-next-line no-console
+    console.log(
+      `Loaded versions from version-file '${versionFile}': ${JSON.stringify(
+        versionFileMap
+      )}`
+    )
+  }
+
   // eslint-disable-next-line github/array-foreach
   Tools.forEach(async function(tool) {
     let toolPath = ''
@@ -423,6 +461,10 @@ async function run() {
       let toolVersion = core
         .getInput(tool.name, {required: false})
         .toLowerCase()
+      // Fall back to the version-file entry when the tool's own input is unset.
+      if (!toolVersion && versionFileMap[tool.name]) {
+        toolVersion = versionFileMap[tool.name]
+      }
       if (toolVersion && toolVersion.startsWith('v')) {
         toolVersion = toolVersion.substr(1)
       }

@@ -188,6 +188,38 @@ jobs:
           ${kubescore} version
         fi
 
+  test-version-file:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+    - name: Create .tool-versions
+      run: |
+        cat > .tool-versions <<'EOF'
+        # versions pinned via .tool-versions
+        kubectl 1.30.0
+        helm 3.14.4
+        yq 4.44.1
+        nodejs 20.0.0
+        EOF
+    - uses: ./
+      with:
+        version-file: '.tool-versions'
+        setup-tools: |
+          kubectl
+          helm
+          yq
+        # explicit input must override the version-file entry
+        kubectl: '1.31.0'
+      id: setup
+    - name: Verify version-file precedence
+      run: |
+        echo "kubectl (explicit override wins):"
+        kubectl version --client 2>&1 | grep -F '1.31.0'
+        echo "helm (from version-file):"
+        helm version 2>&1 | grep -F '3.14.4'
+        echo "yq (from version-file):"
+        yq --version 2>&1 | grep -F '4.44.1'
+
   # ARM test (force ARM64 artifacts on x64 runner)
   test-force-arm64:
     runs-on: ubuntu-latest
