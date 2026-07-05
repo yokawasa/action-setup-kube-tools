@@ -13,50 +13,43 @@ inputs:
     required: false
     default: ''
     description: 'List of tool name to setup. By default, the action download and setup all supported Kubernetes tools. By specifying "setup-tools" you can choose which tools the action setup. Supported separator is return in multi-line string. Supported tools are "kubectl", "kustomize", "helm", "helmv3", "kubeval", "conftest", "yq", "rancher", "tilt", "skaffold", "kube-score"'
+  version-file:
+    required: false
+    default: ''
+    description: 'Optional. Path to a ".tool-versions" (asdf/mise) style file. For each supported tool that has an entry in the file, that version is used, unless the tool''s own version input is explicitly set. Resolution order is: explicit tool input > version-file entry > built-in default. Each line is "<tool> <version>"; "#" comments, blank lines, and unsupported tool names are ignored.'
   kubectl:
     required: false
-    default: '1.35.3'
-    description: "kubectl version or 'latest'"
+    description: "kubectl version or 'latest' (default: 1.35.3)"
   kustomize:
     required: false
-    default: '5.8.1'
-    description: "kustomize version or 'latest'"
+    description: "kustomize version or 'latest' (default: 5.8.1)"
   helm:
     required: false
-    default: '3.20.1'
-    description: "helm version or 'latest'"
+    description: "helm version or 'latest' (default: 3.20.1)"
   kubeval:
     required: false
-    default: '0.16.1'
-    description: "kubeval version or 'latest'"
+    description: "kubeval version or 'latest' (default: 0.16.1)"
   kubeconform:
     required: false
-    default: '0.7.0'
-    description: "kubeconform version or 'latest'"
+    description: "kubeconform version or 'latest' (default: 0.7.0)"
   conftest:
     required: false
-    default: '0.67.1'
-    description: "conftest version or 'latest'"
+    description: "conftest version or 'latest' (default: 0.67.1)"
   yq:
     required: false
-    default: '4.52.5'
-    description: "yq version or 'latest'"
+    description: "yq version or 'latest' (default: 4.52.5)"
   rancher:
     required: false
-    default: '2.13.3'
-    description: "rancher cli version or 'latest'"
+    description: "rancher cli version or 'latest' (default: 2.13.3)"
   tilt:
     required: false
-    default: '0.37.0'
-    description: "tilt version or 'latest'"
+    description: "tilt version or 'latest' (default: 0.37.0)"
   skaffold:
     required: false
-    default: '2.18.1'
-    description: "skaffold version or 'latest'"
+    description: "skaffold version or 'latest' (default: 2.18.1)"
   kube-score:
     required: false
-    default: '1.20.0'
-    description: "kube-score version or 'latest'"
+    description: "kube-score version or 'latest' (default: 1.20.0)"
 outputs:
   kubectl-path:
     description: 'kubectl command path if the action setup the tool, otherwise empty string'

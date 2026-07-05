@@ -16,6 +16,7 @@ A GitHub Action that setup Kubernetes tools (kubectl, kustomize, helm, kubeconfo
 |`fail-fast`|`false`|`true`| the action immediately fails when it fails to download (ie. due to a bad version) |
 |`arch-type`|`false`|`""`| Optional. The processor architecture type of the tool binary to setup. The action will auto-detect the architecture (`amd64` or `arm64`) and use it as appropriate at runtime. Specify the architecture type (`amd64` or `arm64`) only if you need to force it.|
 |`setup-tools`|`false`|`""`|List of tool name to setup. By default, the action download and setup all supported Kubernetes tools. By specifying `setup-tools` you can choose which tools the action setup. Supported separator is `return` in multi-line string. Supported tools are `kubectl`, `kustomize`, `helm`, `kubeval`, `conftest`, `yq`, `rancher`, `tilt`, `skaffold`, `kube-score`|
+|`version-file`|`false`|`""`| Optional. Path to a `.tool-versions` ([asdf](https://asdf-vm.com/)/[mise](https://mise.jdx.dev/)) style file. For each supported tool with an entry in the file, that version is used **unless** the tool's own version input is explicitly set. Resolution order: explicit tool input > `version-file` entry > built-in default. Each line is `<tool> <version>`; `#` comments, blank lines, and unsupported tool names are ignored. See [Using a version file](#using-a-version-file).|
 |`kubectl`|`false`|`1.35.3`| kubectl version or `latest`. kubectl versions can be found [here](https://github.com/kubernetes/kubernetes/releases)|
 |`kustomize`|`false`|`5.8.1`| kustomize version or `latest`. kustomize versions can be found [here](https://github.com/kubernetes-sigs/kustomize/releases)|
 |`helm`|`false`|`3.20.1`| helm version or `latest`. helm versions can be found [here](https://github.com/helm/helm/releases)|
@@ -180,6 +181,47 @@ Explicit latest inputs (optional):
 ```
 
 Note: Using `latest` makes builds non-reproducible since versions can change over time. Prefer pinning exact versions for stability.
+
+### Using a version file
+
+If you already pin tool versions in a `.tool-versions` file (the [asdf](https://asdf-vm.com/)/[mise](https://mise.jdx.dev/) format), point `version-file` at it instead of repeating each version in the workflow:
+
+```
+# .tool-versions
+kubectl 1.30.0
+helm 3.15.0
+kustomize 5.4.0
+# unsupported tools and comments are ignored
+nodejs 20.0.0
+```
+
+```yaml
+  test:
+    steps:
+    - uses: actions/checkout@v4
+    - uses: yokawasa/action-setup-kube-tools@v0.13.5
+      with:
+        version-file: '.tool-versions'
+    - run: |
+        kubectl version --client
+        helm version
+        kustomize version
+```
+
+A tool's own version input always overrides its `version-file` entry, so you can pin most versions in the file and selectively override one in the workflow:
+
+```yaml
+  test:
+    steps:
+    - uses: actions/checkout@v4
+    - uses: yokawasa/action-setup-kube-tools@v0.13.5
+      with:
+        version-file: '.tool-versions'
+        # kubectl from .tool-versions is overridden here; helm/kustomize still come from the file
+        kubectl: '1.31.0'
+```
+
+Resolution order is: explicit tool input > `version-file` entry > built-in default. Tools without an entry in the file (and without an explicit input) fall back to their built-in default version.
 
 
 ## Developing the action
