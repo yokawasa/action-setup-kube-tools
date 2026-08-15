@@ -2,6 +2,7 @@ import * as os from 'os'
 import * as path from 'path'
 import * as util from 'util'
 import * as fs from 'fs'
+import * as crypto from 'crypto'
 import * as https from 'https'
 
 import * as toolCache from '@actions/tool-cache'
@@ -323,7 +324,8 @@ function getDownloadURL(
 async function downloadTool(
   version: string,
   archType: string,
-  tool: Tool
+  tool: Tool,
+  expectedSha256?: string
 ): Promise<string> {
   let cachedToolPath = toolCache.find(tool.name, version)
   let commandPathInPackage = tool.commandPathInPackage
@@ -334,6 +336,16 @@ async function downloadTool(
 
     try {
       const packagePath = await toolCache.downloadTool(downloadURL)
+
+      if (expectedSha256) {
+        const fileContent = fs.readFileSync(packagePath)
+        const hash = crypto.createHash('sha256').update(fileContent).digest('hex')
+        if (hash !== expectedSha256.toLowerCase()) {
+          throw new Error(
+            `SHA256 checksum mismatch for ${tool.name}. Expected: ${expectedSha256}, Got: ${hash}`
+          )
+        }
+      }
 
       if (tool.isArchived) {
         const extractTarBaseDirPath = util.format(
@@ -496,7 +508,8 @@ async function run() {
       }
 
       try {
-        const cachedPath = await downloadTool(toolVersion, archType, tool)
+        const checksum = core.getInput('checksum', {required: false}).toLowerCase()
+        const cachedPath = await downloadTool(toolVersion, archType, tool, checksum || undefined)
         core.addPath(path.dirname(cachedPath))
         toolPath = cachedPath
       } catch (exception) {
