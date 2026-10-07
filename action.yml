@@ -50,6 +50,9 @@ inputs:
   kube-score:
     required: false
     description: "kube-score version or 'latest' (default: 1.20.0)"
+  checksum:
+    required: false
+    description: "Optional. SHA256 checksum for the downloaded artifacts. If provided, the action will verify the downloaded binary matches this checksum."
 outputs:
   kubectl-path:
     description: 'kubectl command path if the action setup the tool, otherwise empty string'
