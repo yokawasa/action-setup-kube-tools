@@ -58,7 +58,7 @@ Pinned versions (reproducible):
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: yokawasa/action-setup-kube-tools@v0.13.5
+    - uses: yokawasa/action-setup-kube-tools@v0.14.1
       with:
         kubectl: '1.35.3'
         kustomize: '5.8.1'
@@ -89,7 +89,7 @@ Default versions for the commands will be setup if you don't give any inputs lik
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: yokawasa/action-setup-kube-tools@v0.13.5
+    - uses: yokawasa/action-setup-kube-tools@v0.14.1
     - run: |
         kubectl version --client
         kustomize version
@@ -110,7 +110,7 @@ By specifying setup-tools you can choose which tools the action setup. Supported
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: yokawasa/action-setup-kube-tools@v0.13.5
+    - uses: yokawasa/action-setup-kube-tools@v0.14.1
       with:
         setup-tools: |
           kubectl
@@ -134,7 +134,7 @@ Architecture is automatically detected on the runner (amd64 or arm64). You can o
   test: 
     steps:
     - uses: actions/checkout@v4
-    - uses: yokawasa/action-setup-kube-tools@v0.13.5
+    - uses: yokawasa/action-setup-kube-tools@v0.14.1
       with:
         # arch-type is optional; uncomment to force arm64
         # arch-type: 'arm64'
@@ -160,7 +160,7 @@ Explicit latest inputs (optional):
   test: 
     steps:
     - uses: actions/checkout@v4
-    - uses: yokawasa/action-setup-kube-tools@v0.13.5
+    - uses: yokawasa/action-setup-kube-tools@v0.14.1
       with:
         # arch-type is optional; uncomment to force arm64
         # arch-type: 'arm64'
@@ -199,7 +199,7 @@ nodejs 20.0.0
   test:
     steps:
     - uses: actions/checkout@v4
-    - uses: yokawasa/action-setup-kube-tools@v0.13.5
+    - uses: yokawasa/action-setup-kube-tools@v0.14.1
       with:
         version-file: '.tool-versions'
     - run: |
@@ -214,7 +214,7 @@ A tool's own version input always overrides its `version-file` entry, so you can
   test:
     steps:
     - uses: actions/checkout@v4
-    - uses: yokawasa/action-setup-kube-tools@v0.13.5
+    - uses: yokawasa/action-setup-kube-tools@v0.14.1
       with:
         version-file: '.tool-versions'
         # kubectl from .tool-versions is overridden here; helm/kustomize still come from the file
@@ -242,7 +242,7 @@ Finally push the results
 ```
 git add dist
 git commit -a -m "prod dependencies"
-git push origin releases/v0.13.X
+git push origin releases/v0.14.X
 ```
 
 ## References
